@@ -253,7 +253,7 @@ if __name__=="__main__":
     driver.get('https://mail.126.com/')
     wait.switchToFrame(*frame)
     username = wait.findElement('xpath', '//input[@name="email"]')
-    username.send_keys('linuxxiaochao')
+    username.send_keys('账号')
     if wait.isElementExsit('xpath', '//input[@name="password"]'):
         wait.findElement('xpath', '//input[@name="password"]').send_keys('xiaochao11520')
     wait.click('xpath', '//a[@id="dologin"]')

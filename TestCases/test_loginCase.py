@@ -12,9 +12,9 @@ from Page.PageObject.LoginPage import LoginPage
 
 # ---------------------------------------------------------------------------------
 # 测试数据
-loginData = [('linuxxiaochao', 'xiaochao11520'),
-                ('linuxxiaochao', 'xiaochao11520'),
-                ('linuxxiaochao', 'xiaochao11520')]
+loginData = [('账号', 'xiaochao11520'),
+                ('账号', 'xiaochao11520'),
+                ('账号', 'xiaochao11520')]
 # ---------------------------------------------------------------------------------
 
 @pytest.fixture()

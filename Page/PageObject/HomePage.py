@@ -40,7 +40,7 @@ if __name__=='__main__':
     from Page.PageObject.LoginPage import LoginPage
     driver = webdriver.Firefox()
     login = LoginPage(driver)
-    login.login('linuxxiaochao', 'xiaochao11520')
+    login.login('账号', 'xiaochao11520')
 
     home = HomePage(driver)
     home.selectMenu()

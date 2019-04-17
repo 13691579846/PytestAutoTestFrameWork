@@ -18,6 +18,6 @@ class sendMailWithReport(object):
         # 发送邮件
         yag.send(toUser, subject, contents, fileName)
 if __name__=='__main__':
-    sendMailWithReport.sendMail('smtp.qq.com', '281754043@qq.com', 'mhxvqpewblldbjhf', '281754043@qq.com',
+    sendMailWithReport.sendMail('smtp.qq.com', '账号@qq.com', 'mhxvqpewblldbjhf', '账号@qq.com',
                                 'python自动化测试', '邮件正文',
                               '17_12_07.html')

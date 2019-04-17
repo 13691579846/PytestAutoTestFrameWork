@@ -36,4 +36,4 @@ if __name__=="__main__":
     from selenium import webdriver
     driver = webdriver.Firefox()
     login = LoginPage(driver, 30)
-    login.login('linuxxiaochao', 'xiaochao11520')
+    login.login('账号', 'xiaochao11520')

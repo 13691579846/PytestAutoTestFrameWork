@@ -42,7 +42,7 @@ if __name__ == '__main__':
     login = LoginPage(driver)
     contact = ContactPage(driver)
 
-    login.login('linuxxiaochao', 'xiaochao11520')
+    login.login('账号', 'xiaochao11520')
     home.selectMenu()
     contact.newContact('281754041@qq.com')
 
