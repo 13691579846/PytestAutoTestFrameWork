@@ -1,0 +1,5 @@
+{
+  "TestCases/test_loginCase.py::test_login[linux-xiaochao11520]": true,
+  "TestCases/test_loginCase.py::test_login[linuxchao-123456]": true,
+  "TestCases/test_loginCase.py::test_login[linuxxiaochao-123456]": true
+}

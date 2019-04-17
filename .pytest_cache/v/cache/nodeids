@@ -1,0 +1,11 @@
+[
+  "TestCases/test_contactCase.py::test_NewContact[linuxChao1-281754041@qq.com--13691579841-test1]",
+  "TestCases/test_contactCase.py::test_NewContact[linuxChao2-281754042@qq.com--13691579842-test1]",
+  "TestCases/test_contactCase.py::test_NewContact[linuxChao3-281754043@qq.com--13691579843-test1]",
+  "TestCases/test_loginCase.py::test_login[linuxxiaochao-xiaochao115200]",
+  "TestCases/test_loginCase.py::test_login[linuxxiaochao-xiaochao115201]",
+  "TestCases/test_loginCase.py::test_login[linuxxiaochao-xiaochao115202]",
+  "TestCases/test_sendMailCase.py::test_sendMail[281754043@qq.com-pytest\\u6d4b\\u8bd5\\u4e3b\\u98981-pytest \\u6d4b\\u8bd5\\u90ae\\u4ef6, \\u8bf7\\u52ff\\u56de\\u590d!-0-]",
+  "TestCases/test_sendMailCase.py::test_sendMail[281754043@qq.com-pytest\\u6d4b\\u8bd5\\u4e3b\\u98982-pytest \\u6d4b\\u8bd5\\u90ae\\u4ef6, \\u8bf7\\u52ff\\u56de\\u590d!-1-D:\\\\KeyWordDriverTestFrameWork\\\\geckodriver.log]",
+  "TestCases/test_sendMailCase.py::test_sendMail[281754043@qq.com-pytest\\u6d4b\\u8bd5\\u4e3b\\u98983-pytest \\u6d4b\\u8bd5\\u90ae\\u4ef6, \\u8bf7\\u52ff\\u56de\\u590d!-1-D:\\\\KeyWordDriverTestFrameWork\\\\geckodriver.log]"
+]
