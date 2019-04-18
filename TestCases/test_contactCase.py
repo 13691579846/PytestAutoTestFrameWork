@@ -19,6 +19,7 @@ contactData = [('linuxChao1', '281754041@qq.com', '', '13691579841', 'test1'),
                ('linuxChao3', '281754043@qq.com', '', '13691579843', 'test1')]
 # ---------------------------------------------------------------------------------
 
+@pytest.mark.newcontact
 @pytest.mark.parametrize('Name, Mail, Star, Phone, Comment', contactData)
 def test_NewContact(driver, login, Name, Mail, Star, Phone, Comment):
     '''测试添加联系人'''

@@ -26,6 +26,7 @@ def teardown_func(driver):
     yield
     driver.delete_all_cookies()
 
+@pytest.mark.login
 @pytest.mark.parametrize('username, password', loginData)
 def test_login(teardown_func, driver, username, password):
     '''测试登录'''

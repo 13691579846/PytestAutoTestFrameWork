@@ -20,6 +20,7 @@ mailData = [
 ]
 # ---------------------------------------------------------------------------------
 
+@pytest.mark.sendmail
 @pytest.mark.parametrize('Address, Subject, Text, Flag, PFA', mailData)
 def test_sendMail(driver, login, Address, Subject, Text, Flag, PFA):
     '''测试发送邮件，包括带附件的邮件'''
