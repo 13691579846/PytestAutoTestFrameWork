@@ -12,7 +12,9 @@ import os
 # 项目根目录
 projectDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # 报告目录
-reportDir = os.path.join(projectDir, r'report')
+reportDir = os.path.join(projectDir, 'report')
+# ui对象库config.ini文件所在目录
+configDir = os.path.join(projectDir, 'config', 'config.ini')
 # 当前时间
 currentTime = datetime.now().strftime('%H_%M_%S')
 

@@ -7,21 +7,30 @@
 @Motto: Real warriors,dare to face the bleak warning,dare to face the incisive error!
 ------------------------------------
 """
-from Page.BasePage import BasePage
+from Page.BasePage import BasePage, cf
+
 # ---------------------------------------------------------------------------------
 # 页面元素
-new_contact = ('xpath', '//span[text()="新建联系人"]')
-name = ('id', 'input_N')
-mail = ('xpath', '//div[@id="iaddress_MAIL_wrap"]//input[@class="nui-ipt-input"]')
-star = ('xpath', 'span[@class="nui-chk-text"]/preceding-sibling::span/b')
-phone = ('xpath', "//div[@id='iaddress_TEL_wrap']//input[@class='nui-ipt-input']")
-comment = ('id', "input_DETAIL")
-commit = ('xpath', "//span[text()='确 定']")
+# new_contact = ('xpath', '//span[text()="新建联系人"]')
+# name = ('id', 'input_N')
+# mail = ('xpath', '//div[@id="iaddress_MAIL_wrap"]//input[@class="nui-ipt-input"]')
+# star = ('xpath', 'span[@class="nui-chk-text"]/preceding-sibling::span/b')
+# phone = ('xpath', "//div[@id='iaddress_TEL_wrap']//input[@class='nui-ipt-input']")
+# comment = ('id', "input_DETAIL")
+# commit = ('xpath', "//span[text()='确 定']")
+new_contact = cf.getLocatorsOrAccount('ContactPageElements', 'new_contact')
+name = cf.getLocatorsOrAccount('ContactPageElements', 'name')
+mail = cf.getLocatorsOrAccount('ContactPageElements', 'mail')
+star = cf.getLocatorsOrAccount('ContactPageElements', 'star')
+phone = cf.getLocatorsOrAccount('ContactPageElements', 'phone')
+comment = cf.getLocatorsOrAccount('ContactPageElements', 'comment')
+commit = cf.getLocatorsOrAccount('ContactPageElements', 'commit')
 # ---------------------------------------------------------------------------------
 
 class ContactPage(BasePage):
 
     def newContact(self, Name='', Mail='', Star=None, Phone='', Comment=''):
+
         '''添加联系人'''
         print('--------string add contact--------')
         self.click(*new_contact)
@@ -33,6 +42,7 @@ class ContactPage(BasePage):
         self.sendKeys(*comment, Comment)
         self.click(*commit)
         print('--------end add contact--------')
+
 if __name__ == '__main__':
     from selenium import webdriver
     from Page.PageObject.LoginPage import LoginPage

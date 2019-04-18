@@ -7,18 +7,26 @@
 @Motto: Real warriors,dare to face the bleak warning,dare to face the incisive error!
 ------------------------------------
 """
-from Page.BasePage import BasePage
+from Page.BasePage import BasePage, cf
+
 # ---------------------------------------------------------------------------------
 # 页面元素
-homePage = ('id', '_mail_tabitem_0_3text') # 首页
-mailList = ('id', '_mail_tabitem_1_4text')  # 通讯录
-applicationCenter = ('id', '_mail_tabitem_2_5text') # 应用中心
-inBox = ('id', '_mail_tabitem_3_6text')
+# homePage = ('id', '_mail_tabitem_0_3text') # 首页
+# mailList = ('id', '_mail_tabitem_1_4text')  # 通讯录
+# applicationCenter = ('id', '_mail_tabitem_2_5text') # 应用中心
+# inBox = ('id', '_mail_tabitem_3_6text')
+# 配置文件读取元素
+homePage = cf.getLocatorsOrAccount('HomePageElements', 'homePage')
+mailList = cf.getLocatorsOrAccount('HomePageElements', 'mailList')
+applicationCenter = cf.getLocatorsOrAccount('HomePageElements', 'applicationCenter')
+inBox = cf.getLocatorsOrAccount('HomePageElements', 'inBox')
 # ---------------------------------------------------------------------------------
 
 class HomePage(BasePage):
+
     '''首页菜单选项'''
     def selectMenu(self, Menu='mailList'):
+
         if Menu == 'mailList':
             self.click(*mailList)
         elif Menu == 'homePage':

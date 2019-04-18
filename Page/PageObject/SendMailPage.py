@@ -7,22 +7,33 @@
 @Motto: Real warriors,dare to face the bleak warning,dare to face the incisive error!
 ------------------------------------
 """
-from Page.BasePage import BasePage
+from Page.BasePage import BasePage, cf
 
 # ---------------------------------------------------------------------------------
 # 页面元素
-writeMail = ('xpath', "//div[@id='dvNavContainer']//span[text()='写 信']")
-addressee = ('xpath', "//input[@aria-label='收件人地址输入框，请输入邮件地址，多人时地址请以分号隔开']")
-subject = ('xpath', "//input[contains(@id, '_subjectInput')]")
-iframe = ('xpath', '//iframe[@class="APP-editor-iframe"]')
-text = ('xpath', '/html/body')
-sendBtn = ('xpath', "//header//span[text()='发送']")
-expect = ('xpath', "//h1[contains(@id,'_succInfo')]")
-uploadAttachment = ('xpath', '//div[@title="点击添加附件"]')
-delete = ('xpath', "//a[text()='删除']")
+# writeMail = ('xpath', "//div[@id='dvNavContainer']//span[text()='写 信']")
+# addressee = ('xpath', "//input[@aria-label='收件人地址输入框，请输入邮件地址，多人时地址请以分号隔开']")
+# subject = ('xpath', "//input[contains(@id, '_subjectInput')]")
+# iframe = ('xpath', '//iframe[@class="APP-editor-iframe"]')
+# text = ('xpath', '/html/body')
+# sendBtn = ('xpath', "//header//span[text()='发送']")
+# expect = ('xpath', "//h1[contains(@id,'_succInfo')]")
+# uploadAttachment = ('xpath', '//div[@title="点击添加附件"]')
+# delete = ('xpath', "//a[text()='删除']")
+writeMail = cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
+addressee = cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
+subject = cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
+iframe = cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
+text = cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
+sendBtn = cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
+expect = cf.getLocatorsOrAccount('SendMailPageElements', 'expect')
+uploadAttachment = cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
+delete = cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
 # ---------------------------------------------------------------------------------
 
 class SendMailPage(BasePage):
+
+
     def sendMail(self, Address, Subject, Text, Flag = 0, PFA=''):
         '''发送邮件功能'''
         print('------------string send mail---------------------')

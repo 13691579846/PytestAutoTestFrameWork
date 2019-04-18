@@ -8,7 +8,7 @@
 ------------------------------------
 """
 import pytest
-from Page.PageObject.SendMailPage import SendMailPage, expect
+from Page.PageObject.SendMailPage import SendMailPage
 
 # ---------------------------------------------------------------------------------
 # 测试数据 0和1 标记是否发送附件
@@ -26,7 +26,7 @@ def test_sendMail(driver, login, Address, Subject, Text, Flag, PFA):
     send_mail = SendMailPage(driver)
     send_mail.sendMail(Address, Subject, Text, Flag, PFA)
     send_mail.sleep(5)
-    assert send_mail.isElementExsit(*expect)
+    assert send_mail.isElementExsit(*('xpath', "//h1[contains(@id,'_succInfo')]"))
 
 if __name__=='__main__':
     import pytest

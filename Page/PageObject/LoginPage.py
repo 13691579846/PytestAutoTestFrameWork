@@ -7,14 +7,19 @@
 @Motto: Real warriors,dare to face the bleak warning,dare to face the incisive error!
 ------------------------------------
 """
-from Page.BasePage import BasePage
+from Page.BasePage import BasePage, cf
 
 # ---------------------------------------------------------------------------------
 # 页面元素
-frame = ('xpath', '//div[@id="loginDiv"]/iframe')
-username = ('xpath', '//input[@name="email"]')
-password = ('xpath', '//input[@name="password"]')
-loginBtn = ('xpath', '//a[@id="dologin"]')
+# frame = ('xpath', '//div[@id="loginDiv"]/iframe')
+# username = ('xpath', '//input[@name="email"]')
+# password = ('xpath', '//input[@name="password"]')
+# loginBtn = ('xpath', '//a[@id="dologin"]')
+# 配置文件读取元素
+frame = cf.getLocatorsOrAccount('LoginPageElements', 'frame')
+username = cf.getLocatorsOrAccount('LoginPageElements', 'username')
+password = cf.getLocatorsOrAccount('LoginPageElements', 'password')
+loginBtn = cf.getLocatorsOrAccount('LoginPageElements', 'loginBtn')
 # ---------------------------------------------------------------------------------
 
 class LoginPage(BasePage):
@@ -31,6 +36,7 @@ class LoginPage(BasePage):
         self.click(*loginBtn)
         self.switchToDefaultFrame()
         print('---------end login---------')
+
 
 if __name__=="__main__":
     from selenium import webdriver

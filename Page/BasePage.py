@@ -18,6 +18,9 @@ import time
 
 from util.clipboard import ClipBoard
 from util.keyboard import KeyBoard
+from util.parseConFile import ParseConFile
+
+cf = ParseConFile()
 
 class BasePage(object):
     '''
