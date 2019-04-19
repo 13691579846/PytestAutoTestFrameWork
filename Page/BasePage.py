@@ -159,7 +159,7 @@ class BasePage(object):
         '''获取某一个元素的text信息'''
         try:
             element = self.findElement(by, locator)
-            if not name:
+            if name:
                 return element.get_attribute(name)
             else:
                 return element.text
@@ -236,18 +236,15 @@ class BasePage(object):
         '''断言某个关键字是否存在页面源码中'''
         print('info:assert "{}" in page source'.format(value))
         source = self.getSource()
-        try:
-            assert value in source, '关键字"{}"不存在源码中!'.format(value)
-        except AssertionError:
-            raise '关键字"{}"不存在源码中!'.format(value)
+        assert value in source, '关键字"{}"不存在源码中!'.format(value)
 
     def assertStringContainsValue(self, String, value):
         '''断言某段字符串包含另一个字符串'''
         print('info:assert "{}" contains "{}"'.format(String, value))
-        try:
-            assert value in String, '"{}"不包含"{}"!'.format(String, value)
-        except AssertionError:
-            raise '"{}"不包含"{}"!'.format(String, value)
+        assert value in String, '"{}"不包含"{}"!'.format(String, value)
+
+
+
 
 if __name__=="__main__":
     driver = webdriver.Firefox()
