@@ -8,14 +8,17 @@
 ------------------------------------
 """
 import pytest
-from Page.PageObject.LoginPage import LoginPage
+from Page.PageObject.LoginPage import LoginPage, cf
+# 从配置文件中获取正确的用户名和密码
+userName = cf.getLocatorsOrAccount('126LoginAccount', 'username')
+passWord = cf.getLocatorsOrAccount('126LoginAccount', 'password')
 
 @pytest.fixture(scope='function')
 def login(driver):
     '''除登录用例，每一个用例的前置条件'''
     print('------------staring login------------')
     loginFunc = LoginPage(driver, 30)
-    loginFunc.login('账号', 'xiaochao11520') # 这里一定要传递正确的用户和密码
+    loginFunc.login(userName, passWord)
     yield
     print('------------end login------------')
     driver.delete_all_cookies()
