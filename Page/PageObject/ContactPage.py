@@ -25,6 +25,7 @@ star = cf.getLocatorsOrAccount('ContactPageElements', 'star')
 phone = cf.getLocatorsOrAccount('ContactPageElements', 'phone')
 comment = cf.getLocatorsOrAccount('ContactPageElements', 'comment')
 commit = cf.getLocatorsOrAccount('ContactPageElements', 'commit')
+errortip = cf.getLocatorsOrAccount('ContactPageElements', 'tooltip')# 错误提示
 # ---------------------------------------------------------------------------------
 
 class ContactPage(BasePage):
@@ -42,6 +43,12 @@ class ContactPage(BasePage):
         self.sendKeys(*comment, Comment)
         self.click(*commit)
         print('--------end add contact--------')
+
+    def assertErrorTip(self, excepted):
+        '''断言联系人添加失败时是否有提示信息'''
+        text = self.getElementText(*errortip)
+        print('info: assert "{}"=="{}"'.format(text, excepted))
+        assert text == excepted
 
 if __name__ == '__main__':
     from selenium import webdriver
