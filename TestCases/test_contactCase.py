@@ -7,6 +7,7 @@
 @Motto: Real warriors,dare to face the bleak warning,dare to face the incisive error!
 ------------------------------------
 """
+import re
 import pytest
 from Page.PageObject.HomePage import HomePage
 from Page.PageObject.ContactPage import ContactPage
@@ -14,9 +15,12 @@ from Page.PageObject.ContactPage import ContactPage
 # ---------------------------------------------------------------------------------
 # 测试数据
 # Name='', Mail='', Star=None, Phone='', Comment=''
-contactData = [('linuxChao1', '281754041@qq.com', '', '13691579841', 'test1'),
-               ('linuxChao2', '281754042@qq.com', '', '13691579842', 'test1'),
-               ('linuxChao3', '281754043@qq.com', '', '13691579843', 'test1')]
+contactData = [('linux1', '1@qq.com', '', '13691579841', 'test1'),
+               ('linux2', '281754042@.com', '', '13691579842', 'test1'),
+               ('linux3', '043@qq.cn', '', '13691579843', 'test1'),
+               ('linux4', '', '', '13691579843', 'test1'),
+               ('linux3', '281754043@qq', '', '13691579843', 'test1'),
+               ('linux3', '@qq.com', '', '13691579843', 'test1')]
 # ---------------------------------------------------------------------------------
 
 @pytest.mark.newcontact
@@ -28,7 +32,11 @@ def test_NewContact(driver, login, Name, Mail, Star, Phone, Comment):
     home_page.selectMenu()
     contact_page.newContact(Name, Mail, Star, Phone, Comment)
     home_page.sleep(5)
-    contact_page.assertValueInSource(Name)
+    # 校验错误的邮箱是否提示信息正确
+    if re.match(r'^.{1,}@[0-9a-zA-Z]{1,13}\..*$', Mail):
+        contact_page.assertValueInSource(Name)
+    else:
+        contact_page.assertErrorTip('请正确填写邮件地址。')
 
 if __name__=='__main__':
     pytest.main(['-v', 'test_contactCase.py'])
