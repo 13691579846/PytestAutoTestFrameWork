@@ -7,7 +7,7 @@
 @Motto: Real warriors,dare to face the bleak warning,dare to face the incisive error!
 ------------------------------------
 """
-from Page.BasePage import BasePage, cf
+from Page.BasePage import BasePage#, cf
 
 # ---------------------------------------------------------------------------------
 # 页面元素
@@ -16,25 +16,29 @@ from Page.BasePage import BasePage, cf
 # applicationCenter = ('id', '_mail_tabitem_2_5text') # 应用中心
 # inBox = ('id', '_mail_tabitem_3_6text')
 # 配置文件读取元素
-homePage = cf.getLocatorsOrAccount('HomePageElements', 'homePage')
-mailList = cf.getLocatorsOrAccount('HomePageElements', 'mailList')
-applicationCenter = cf.getLocatorsOrAccount('HomePageElements', 'applicationCenter')
-inBox = cf.getLocatorsOrAccount('HomePageElements', 'inBox')
+# homePage = cf.getLocatorsOrAccount('HomePageElements', 'homePage')
+# mailList = cf.getLocatorsOrAccount('HomePageElements', 'mailList')
+# applicationCenter = cf.getLocatorsOrAccount('HomePageElements', 'applicationCenter')
+# inBox = cf.getLocatorsOrAccount('HomePageElements', 'inBox')
 # ---------------------------------------------------------------------------------
 
 class HomePage(BasePage):
 
+    homePage = BasePage.cf.getLocatorsOrAccount('HomePageElements', 'homePage')
+    mailList = BasePage.cf.getLocatorsOrAccount('HomePageElements', 'mailList')
+    applicationCenter = BasePage.cf.getLocatorsOrAccount('HomePageElements', 'applicationCenter')
+    inBox = BasePage.cf.getLocatorsOrAccount('HomePageElements', 'inBox')
     '''首页菜单选项'''
     def selectMenu(self, Menu='mailList'):
 
         if Menu == 'mailList':
-            self.click(*mailList)
+            self.click(*HomePage.mailList)
         elif Menu == 'homePage':
-            self.click(*homePage)
+            self.click(*HomePage.homePage)
         elif Menu == 'applicationCenter':
-            self.click(*applicationCenter)
+            self.click(*HomePage.applicationCenter)
         elif Menu == 'inBox':
-            self.click(*inBox)
+            self.click(*HomePage.inBox)
         else:
             raise ValueError('''
             菜单选择错误!

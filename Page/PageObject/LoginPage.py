@@ -7,7 +7,7 @@
 @Motto: Real warriors,dare to face the bleak warning,dare to face the incisive error!
 ------------------------------------
 """
-from Page.BasePage import BasePage, cf
+from Page.BasePage import BasePage#, cf
 
 # ---------------------------------------------------------------------------------
 # 页面元素
@@ -16,33 +16,39 @@ from Page.BasePage import BasePage, cf
 # password = ('xpath', '//input[@name="password"]')
 # loginBtn = ('xpath', '//a[@id="dologin"]')
 # 配置文件读取元素
-frame = cf.getLocatorsOrAccount('LoginPageElements', 'frame')
-username = cf.getLocatorsOrAccount('LoginPageElements', 'username')
-password = cf.getLocatorsOrAccount('LoginPageElements', 'password')
-loginBtn = cf.getLocatorsOrAccount('LoginPageElements', 'loginBtn')
-ferrorHead = cf.getLocatorsOrAccount('LoginPageElements', 'ferrorHead') # 登录失败提示
+# frame = cf.getLocatorsOrAccount('LoginPageElements', 'frame')
+# username = cf.getLocatorsOrAccount('LoginPageElements', 'username')
+# password = cf.getLocatorsOrAccount('LoginPageElements', 'password')
+# loginBtn = cf.getLocatorsOrAccount('LoginPageElements', 'loginBtn')
+# ferrorHead = cf.getLocatorsOrAccount('LoginPageElements', 'ferrorHead') # 登录失败提示
 # ---------------------------------------------------------------------------------
 
 class LoginPage(BasePage):
+
+    frame = BasePage.cf.getLocatorsOrAccount('LoginPageElements', 'frame')
+    username = BasePage.cf.getLocatorsOrAccount('LoginPageElements', 'username')
+    password = BasePage.cf.getLocatorsOrAccount('LoginPageElements', 'password')
+    loginBtn = BasePage.cf.getLocatorsOrAccount('LoginPageElements', 'loginBtn')
+    ferrorHead = BasePage.cf.getLocatorsOrAccount('LoginPageElements', 'ferrorHead')  # 登录失败提示
 
     def login(self, userName, passWord):
         '''登录'''
         print('-------staring login-------')
         self.loadUrl('https://mail.126.com')
-        self.switchToFrame(*frame)
-        self.clear(*username)
-        self.sendKeys(*username, userName)
-        self.clear(*password)
-        self.sendKeys(*password, passWord)
-        self.click(*loginBtn)
+        self.switchToFrame(*LoginPage.frame)
+        self.clear(*LoginPage.username)
+        self.sendKeys(*LoginPage.username, userName)
+        self.clear(*LoginPage.password)
+        self.sendKeys(*LoginPage.password, passWord)
+        self.click(*LoginPage.loginBtn)
         self.switchToDefaultFrame()
         print('---------end login---------')
 
     # add at 2019/04/19
     def assertTextEqString(self, expected, name = None):
         '''断言提示信息是否与期望的值相等'''
-        self.switchToFrame(*frame)
-        text = self.getElementText(*ferrorHead, name)
+        self.switchToFrame(*LoginPage.frame)
+        text = self.getElementText(*LoginPage.ferrorHead, name)
         self.switchToDefaultFrame()
         print('info: assert "{}" == "{}"'.format(text, expected))
         assert text == expected, '{} ！= {}'.format(text, expected)

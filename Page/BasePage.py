@@ -20,12 +20,14 @@ from util.clipboard import ClipBoard
 from util.keyboard import KeyBoard
 from util.parseConFile import ParseConFile
 
-cf = ParseConFile()
+# cf = ParseConFile() move
 
 class BasePage(object):
     '''
     结合显示等待封装一些selenium 内置方法
     '''
+    cf = ParseConFile()
+
     def __init__(self, driver, outTime=30):
         self.byDic = {
         'id': By.ID,

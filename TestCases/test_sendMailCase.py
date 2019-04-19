@@ -30,5 +30,4 @@ def test_sendMail(driver, login, Address, Subject, Text, Flag, PFA):
     assert send_mail.isElementExsit(*('xpath', "//h1[contains(@id,'_succInfo')]"))
 
 if __name__=='__main__':
-    import pytest
     pytest.main(['-v', 'test_sendMailCase.py'])

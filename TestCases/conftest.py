@@ -8,10 +8,10 @@
 ------------------------------------
 """
 import pytest
-from Page.PageObject.LoginPage import LoginPage, cf
+from Page.PageObject.LoginPage import LoginPage#, cf
 # 从配置文件中获取正确的用户名和密码
-userName = cf.getLocatorsOrAccount('126LoginAccount', 'username')
-passWord = cf.getLocatorsOrAccount('126LoginAccount', 'password')
+userName = LoginPage.cf.getLocatorsOrAccount('126LoginAccount', 'username')
+passWord = LoginPage.cf.getLocatorsOrAccount('126LoginAccount', 'password')
 
 @pytest.fixture(scope='function')
 def login(driver):

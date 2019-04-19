@@ -8,7 +8,7 @@
 ------------------------------------
 """
 import pytest
-from Page.PageObject.LoginPage import LoginPage, cf
+from Page.PageObject.LoginPage import LoginPage#, cf
 
 # ---------------------------------------------------------------------------------
 # 测试数据
@@ -16,8 +16,8 @@ loginData = [('linux', ''),
             ('', 'chao'),
             ('l', 'chao'),
             ('', '')]
-userName = cf.getLocatorsOrAccount('126LoginAccount', 'username')
-passWord = cf.getLocatorsOrAccount('126LoginAccount', 'password')
+userName = LoginPage.cf.getLocatorsOrAccount('126LoginAccount', 'username')
+passWord = LoginPage.cf.getLocatorsOrAccount('126LoginAccount', 'password')
 # ---------------------------------------------------------------------------------
 
 @pytest.fixture()
