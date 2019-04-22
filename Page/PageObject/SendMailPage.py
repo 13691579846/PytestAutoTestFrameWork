@@ -7,7 +7,7 @@
 @Motto: Real warriors,dare to face the bleak warning,dare to face the incisive error!
 ------------------------------------
 """
-from Page.BasePage import BasePage#, cf
+from Page.BasePage import BasePage
 
 # ---------------------------------------------------------------------------------
 # 页面元素
@@ -20,19 +20,11 @@ from Page.BasePage import BasePage#, cf
 # expect = ('xpath', "//h1[contains(@id,'_succInfo')]")
 # uploadAttachment = ('xpath', '//div[@title="点击添加附件"]')
 # delete = ('xpath', "//a[text()='删除']")
-# writeMail = cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
-# addressee = cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
-# subject = cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
-# iframe = cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
-# text = cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
-# sendBtn = cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
-# expect = cf.getLocatorsOrAccount('SendMailPageElements', 'expect')
-# uploadAttachment = cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
-# delete = cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
 # ---------------------------------------------------------------------------------
 
 class SendMailPage(BasePage):
 
+    # 配置文件读取元素
     writeMail = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
     addressee = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'addressee')
     subject = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'subject')

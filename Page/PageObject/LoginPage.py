@@ -7,7 +7,7 @@
 @Motto: Real warriors,dare to face the bleak warning,dare to face the incisive error!
 ------------------------------------
 """
-from Page.BasePage import BasePage#, cf
+from Page.BasePage import BasePage
 
 # ---------------------------------------------------------------------------------
 # 页面元素
@@ -15,16 +15,11 @@ from Page.BasePage import BasePage#, cf
 # username = ('xpath', '//input[@name="email"]')
 # password = ('xpath', '//input[@name="password"]')
 # loginBtn = ('xpath', '//a[@id="dologin"]')
-# 配置文件读取元素
-# frame = cf.getLocatorsOrAccount('LoginPageElements', 'frame')
-# username = cf.getLocatorsOrAccount('LoginPageElements', 'username')
-# password = cf.getLocatorsOrAccount('LoginPageElements', 'password')
-# loginBtn = cf.getLocatorsOrAccount('LoginPageElements', 'loginBtn')
-# ferrorHead = cf.getLocatorsOrAccount('LoginPageElements', 'ferrorHead') # 登录失败提示
 # ---------------------------------------------------------------------------------
 
 class LoginPage(BasePage):
 
+    # 配置文件读取元素
     frame = BasePage.cf.getLocatorsOrAccount('LoginPageElements', 'frame')
     username = BasePage.cf.getLocatorsOrAccount('LoginPageElements', 'username')
     password = BasePage.cf.getLocatorsOrAccount('LoginPageElements', 'password')

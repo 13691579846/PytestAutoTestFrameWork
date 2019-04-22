@@ -7,7 +7,7 @@
 @Motto: Real warriors,dare to face the bleak warning,dare to face the incisive error!
 ------------------------------------
 """
-from Page.BasePage import BasePage#, cf
+from Page.BasePage import BasePage
 
 # ---------------------------------------------------------------------------------
 # 页面元素
@@ -18,17 +18,11 @@ from Page.BasePage import BasePage#, cf
 # phone = ('xpath', "//div[@id='iaddress_TEL_wrap']//input[@class='nui-ipt-input']")
 # comment = ('id', "input_DETAIL")
 # commit = ('xpath', "//span[text()='确 定']")
-# new_contact = cf.getLocatorsOrAccount('ContactPageElements', 'new_contact')
-# name = cf.getLocatorsOrAccount('ContactPageElements', 'name')
-# mail = cf.getLocatorsOrAccount('ContactPageElements', 'mail')
-# star = cf.getLocatorsOrAccount('ContactPageElements', 'star')
-# phone = cf.getLocatorsOrAccount('ContactPageElements', 'phone')
-# comment = cf.getLocatorsOrAccount('ContactPageElements', 'comment')
-# commit = cf.getLocatorsOrAccount('ContactPageElements', 'commit')
-# errortip = cf.getLocatorsOrAccount('ContactPageElements', 'tooltip')# 错误提示
 # ---------------------------------------------------------------------------------
 
 class ContactPage(BasePage):
+
+    # 配置文件读取元素
     new_contact = BasePage.cf.getLocatorsOrAccount('ContactPageElements', 'new_contact')
     name = BasePage.cf.getLocatorsOrAccount('ContactPageElements', 'name')
     mail = BasePage.cf.getLocatorsOrAccount('ContactPageElements', 'mail')
