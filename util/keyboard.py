@@ -32,7 +32,9 @@ class KeyBoard(object):
         try:
             win32api.keybd_event(KeyBoard.vk_code[keyName], 0, 0, 0)
         except Exception as e:
+            print('未按下enter键')
             print(e)
+
     @staticmethod
     def keyUp(keyName):
         '''抬起键'''
@@ -44,7 +46,7 @@ class KeyBoard(object):
         '''模拟单个按键'''
         key = key.lower()
         KeyBoard.keyDown(key)
-        time.sleep(1)
+        time.sleep(2)
         KeyBoard.keyUp(key)
 
     @staticmethod

@@ -1,3 +1,6 @@
 [
-  "test_sendMailCase.py::test_sendMail"
+  "test_loginCase.py::test_login[linux-]",
+  "test_loginCase.py::test_login[-chao]",
+  "test_loginCase.py::test_login[l-chao]",
+  "test_loginCase.py::test_login[-]"
 ]

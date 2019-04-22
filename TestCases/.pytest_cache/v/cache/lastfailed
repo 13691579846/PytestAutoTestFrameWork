@@ -1,6 +1,8 @@
 {
   "test_contactCase.py::test_NewContact[linuxChao1-281754041@qq.com--13691579841-test1]": true,
+  "test_loginCase.py::test_login[-]": true,
+  "test_loginCase.py::test_login[-chao]": true,
+  "test_loginCase.py::test_login[l-chao]": true,
   "test_loginCase.py::test_login[linuxchao-123456]": true,
-  "test_loginCase.py::test_login[linuxxiaochao-123456]": true,
-  "test_loginCase.py::test_login[linuxxiaochao-xiaochao11520]": true
+  "test_loginCase.py::test_login[linuxxiaochao-123456]": true
 }

@@ -41,13 +41,13 @@ def test_login(teardown_func, driver, username, password):
     if username == userName and password == passWord:
         login.assertValueInSource('写 信')
     elif username == '':
-        login.assertTextEqString('请输入帐号')
+        login.assertTextEqString('请输入帐')
     elif username != '' and password == '':
         login.assertTextEqString('请输入密码')
     elif username == '' and password == '':
         login.assertTextEqString('请输入帐号')
     else:
-        login.assertTextEqString('帐号或密码错误')
+        login.assertTextEqString('帐号或密码错')
 
 if __name__=="__main__":
     pytest.main(['-v', 'test_loginCase.py'])

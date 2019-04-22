@@ -20,7 +20,6 @@ mailData = [
 ]
 # ---------------------------------------------------------------------------------
 
-#TODO: 这边的断言有点问题需要修改
 @pytest.mark.sendmail
 @pytest.mark.parametrize('Address, Subject, Text, Flag, PFA', mailData)
 def test_sendMail(driver, login, Address, Subject, Text, Flag, PFA):
@@ -28,7 +27,7 @@ def test_sendMail(driver, login, Address, Subject, Text, Flag, PFA):
     send_mail = SendMailPage(driver)
     send_mail.sendMail(Address, Subject, Text, Flag, PFA)
     send_mail.sleep(5)
-    assert send_mail.isElementExsit(*SendMailPage.delete) == True
+    assert send_mail.isElementExsit(*SendMailPage.expect)
 
 if __name__=='__main__':
     pytest.main(['-v', 'test_sendMailCase.py'])
