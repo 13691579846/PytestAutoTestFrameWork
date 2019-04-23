@@ -10,20 +10,19 @@
 import pytest
 from Page.PageObject.SendMailPage import SendMailPage
 
-# ---------------------------------------------------------------------------------
-# 测试数据
-sendMailSheet = SendMailPage.getSheet('sendmail')
-data = SendMailPage.excel.getAllValuesOfSheet(sendMailSheet)
-# ---------------------------------------------------------------------------------
+class TestSendMail(object):
 
-@pytest.mark.sendmail
-@pytest.mark.parametrize('Address, Subject, Text, PFA', data)
-def test_sendMail(driver, login, Address, Subject, Text,PFA):
-    '''测试发送邮件，包括带附件的邮件'''
-    send_mail = SendMailPage(driver)
-    send_mail.sendMail(Address, Subject, Text, PFA)
-    send_mail.sleep(5)
-    assert send_mail.isElementExsit(*SendMailPage.expect)
+    sendMailSheet = SendMailPage.getSheet('mail')
+    data = SendMailPage.excel.getAllValuesOfSheet(sendMailSheet)
+
+    @pytest.mark.sendmail
+    @pytest.mark.parametrize('Address, Subject, Text, PFA', data)
+    def test_sendMail(self, driver, login, Address, Subject, Text,PFA):
+        '''测试发送邮件，包括带附件的邮件'''
+        send_mail = SendMailPage(driver)
+        send_mail.sendMail(Address, Subject, Text, PFA)
+        send_mail.sleep(5)
+        assert send_mail.isElementExsit(*SendMailPage.expect)
 
 if __name__=='__main__':
     pytest.main(['-v', 'test_sendMailCase.py'])

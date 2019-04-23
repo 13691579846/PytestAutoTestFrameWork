@@ -10,45 +10,42 @@
 import pytest
 from Page.PageObject.LoginPage import LoginPage
 
-# ---------------------------------------------------------------------------------
-# 测试数据
-loginSheet = LoginPage.getSheet('login')
-data = LoginPage.excel.getAllValuesOfSheet(loginSheet)
+class TestLogin(object):
 
-# 正确的帐号和密码
-userName = LoginPage.cf.getLocatorsOrAccount('126LoginAccount', 'username')
-passWord = LoginPage.cf.getLocatorsOrAccount('126LoginAccount', 'password')
-# ---------------------------------------------------------------------------------
+    # 测试数据
+    loginSheet = LoginPage.getSheet('login')
+    data = LoginPage.excel.getAllValuesOfSheet(loginSheet)
 
-@pytest.fixture()
-def teardown_func(driver):
-    '''
-    执行每个用例之后要清除一下cookie，
-    否则你第一个账号登录之后，重新加载网址还是登录状态，无法测试后面的账号
-    '''
-    yield
-    driver.delete_all_cookies()
+    # 正确的帐号和密码
+    userName = LoginPage.cf.getLocatorsOrAccount('126LoginAccount', 'username')
+    passWord = LoginPage.cf.getLocatorsOrAccount('126LoginAccount', 'password')
 
-@pytest.mark.login
-@pytest.mark.parametrize('username, password, expect', data) # data 替换loginData
-def test_login(teardown_func, driver, username, password, expect):
-    '''测试登录'''
-    login = LoginPage(driver, 30)
-    login.login(username, password)
-    login.sleep(5)
+    @pytest.fixture()
+    def teardown_func(self, driver):
+        '''
+        执行每个用例之后要清除一下cookie，
+        否则你第一个账号登录之后，重新加载网址还是登录状态，无法测试后面的账号
+        '''
+        yield
+        driver.delete_all_cookies()
 
-    # 增加登录失败时， 对提示信息的验证
-
-    if username == userName and password == passWord:
-        login.assertValueInSource(expect)#('写 信')
-    elif username == '':
-        login.assertTextEqString(expect)#('请输入帐')
-    elif username != '' and password == '':
-        login.assertTextEqString(expect)#('请输入密码')
-    elif username == '' and password == '':
-        login.assertTextEqString(expect)#('请输入帐号')
-    else:
-        login.assertTextEqString(expect)#('帐号或密码错')
+    @pytest.mark.parametrize('username, password, expect', data)
+    def test_login(self, teardown_func, driver, username, password, expect):
+        '''测试登录'''
+        login = LoginPage(driver, 30)
+        login.login(username, password)
+        login.sleep(5)
+        # 增加登录失败时， 对提示信息的验证
+        if username == TestLogin.userName and password == TestLogin.passWord:
+            login.assertValueInSource(expect)
+        elif username == '':
+            login.assertTextEqString(expect)
+        elif username != '' and password == '':
+            login.assertTextEqString(expect)
+        elif username == '' and password == '':
+            login.assertTextEqString(expect)
+        else:
+            login.assertTextEqString(expect)
 
 
 if __name__=="__main__":
