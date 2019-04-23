@@ -9,14 +9,6 @@
 """
 from Page.BasePage import BasePage
 
-# ---------------------------------------------------------------------------------
-# 页面元素
-# frame = ('xpath', '//div[@id="loginDiv"]/iframe')
-# username = ('xpath', '//input[@name="email"]')
-# password = ('xpath', '//input[@name="password"]')
-# loginBtn = ('xpath', '//a[@id="dologin"]')
-# ---------------------------------------------------------------------------------
-
 class LoginPage(BasePage):
 
     # 配置文件读取元素

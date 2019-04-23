@@ -15,6 +15,8 @@ projectDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 reportDir = os.path.join(projectDir, 'report')
 # ui对象库config.ini文件所在目录
 configDir = os.path.join(projectDir, 'config', 'config.ini')
+# 测试数据所在目录
+excelPath = os.path.join(projectDir, 'data', 'tcData.xlsx')
 # 当前时间
 currentTime = datetime.now().strftime('%H_%M_%S')
 

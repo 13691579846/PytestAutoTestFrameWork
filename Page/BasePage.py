@@ -19,13 +19,14 @@ import time
 from util.clipboard import ClipBoard
 from util.keyboard import KeyBoard
 from util.parseConFile import ParseConFile
-
+from util.parseExcelFile import ParseExcel
 
 class BasePage(object):
     '''
     结合显示等待封装一些selenium 内置方法
     '''
     cf = ParseConFile()
+    excel = ParseExcel()
 
     def __init__(self, driver, outTime=30):
         self.byDic = {
@@ -244,6 +245,12 @@ class BasePage(object):
         print('info:assert "{}" contains "{}"'.format(String, value))
         assert value in String, '"{}"不包含"{}"!'.format(String, value)
 
+
+    @staticmethod
+    def getSheet(sheetName):
+        '''获取某个sheet页的对象'''
+        sheet = BasePage.excel.getSheetByName(sheetName)
+        return sheet
 
 
 

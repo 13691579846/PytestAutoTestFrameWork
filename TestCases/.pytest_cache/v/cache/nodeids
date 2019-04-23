@@ -1,6 +1,6 @@
 [
-  "test_loginCase.py::test_login[linux-]",
-  "test_loginCase.py::test_login[-chao]",
-  "test_loginCase.py::test_login[l-chao]",
-  "test_loginCase.py::test_login[-]"
+  "test_loginCase.py::test_login[linuxxiaochao-xiaochao11520-\\u5199 \\u4fe1]",
+  "test_loginCase.py::test_login[linuxxiaochao--\\u8bf7\\u8f93\\u5165\\u5bc6\\u7801]",
+  "test_loginCase.py::test_login[-xiaochao11520-\\u8bf7\\u8f93\\u5165\\u5e10\\u53f7]",
+  "test_loginCase.py::test_login[linux-xiaochao-\\u5e10\\u53f7\\u6216\\u5bc6\\u7801\\u9519\\u8bef]"
 ]

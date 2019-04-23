@@ -60,6 +60,7 @@ class ParseExcel(object):
         return value
 
     def getAllValuesOfSheet(self, sheet):
+        '''获取某一个sheet页的所有测试数据，返回一个元祖组成的列表'''
         maxRowNum = self.getRowNum(sheet)
         columnNum = self.getColsNum(sheet)
         allValues = []

@@ -8,14 +8,14 @@
 ------------------------------------
 """
 import pytest
-from Page.PageObject.LoginPage import LoginPage#, cf
+from Page.PageObject.LoginPage import LoginPage
 
 # ---------------------------------------------------------------------------------
 # 测试数据
-loginData = [('linux', ''),
-            ('', 'chao'),
-            ('l', 'chao'),
-            ('', '')]
+loginSheet = LoginPage.getSheet('login')
+data = LoginPage.excel.getAllValuesOfSheet(loginSheet)
+
+# 正确的帐号和密码
 userName = LoginPage.cf.getLocatorsOrAccount('126LoginAccount', 'username')
 passWord = LoginPage.cf.getLocatorsOrAccount('126LoginAccount', 'password')
 # ---------------------------------------------------------------------------------
@@ -30,24 +30,26 @@ def teardown_func(driver):
     driver.delete_all_cookies()
 
 @pytest.mark.login
-@pytest.mark.parametrize('username, password', loginData)
-def test_login(teardown_func, driver, username, password):
+@pytest.mark.parametrize('username, password, expect', data) # data 替换loginData
+def test_login(teardown_func, driver, username, password, expect):
     '''测试登录'''
     login = LoginPage(driver, 30)
     login.login(username, password)
     login.sleep(5)
 
     # 增加登录失败时， 对提示信息的验证
+
     if username == userName and password == passWord:
-        login.assertValueInSource('写 信')
+        login.assertValueInSource(expect)#('写 信')
     elif username == '':
-        login.assertTextEqString('请输入帐')
+        login.assertTextEqString(expect)#('请输入帐')
     elif username != '' and password == '':
-        login.assertTextEqString('请输入密码')
+        login.assertTextEqString(expect)#('请输入密码')
     elif username == '' and password == '':
-        login.assertTextEqString('请输入帐号')
+        login.assertTextEqString(expect)#('请输入帐号')
     else:
-        login.assertTextEqString('帐号或密码错')
+        login.assertTextEqString(expect)#('帐号或密码错')
+
 
 if __name__=="__main__":
     pytest.main(['-v', 'test_loginCase.py'])

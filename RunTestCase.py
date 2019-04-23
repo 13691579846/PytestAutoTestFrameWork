@@ -21,5 +21,6 @@ def main():
     sendMailWithReport.sendMail(smtpServer, fromUser, fromPassWord,
                                 toUser, subject, contents,
                               htmlName)
+
 if __name__=='__main__':
     main()

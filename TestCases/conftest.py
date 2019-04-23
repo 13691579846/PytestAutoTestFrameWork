@@ -8,11 +8,12 @@
 ------------------------------------
 """
 import pytest
-from Page.PageObject.LoginPage import LoginPage#, cf
+from Page.PageObject.LoginPage import LoginPage
+
+
 # 从配置文件中获取正确的用户名和密码
 userName = LoginPage.cf.getLocatorsOrAccount('126LoginAccount', 'username')
 passWord = LoginPage.cf.getLocatorsOrAccount('126LoginAccount', 'password')
-
 @pytest.fixture(scope='function')
 def login(driver):
     '''除登录用例，每一个用例的前置条件'''

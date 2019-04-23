@@ -8,13 +8,6 @@
 ------------------------------------
 """
 from Page.BasePage import BasePage
-# ---------------------------------------------------------------------------------
-# 页面元素
-# homePage = ('id', '_mail_tabitem_0_3text') # 首页
-# mailList = ('id', '_mail_tabitem_1_4text')  # 通讯录
-# applicationCenter = ('id', '_mail_tabitem_2_5text') # 应用中心
-# inBox = ('id', '_mail_tabitem_3_6text')
-# ---------------------------------------------------------------------------------
 
 class HomePage(BasePage):
     # 配置文件读取元素

@@ -9,19 +9,6 @@
 """
 from Page.BasePage import BasePage
 
-# ---------------------------------------------------------------------------------
-# 页面元素
-# writeMail = ('xpath', "//div[@id='dvNavContainer']//span[text()='写 信']")
-# addressee = ('xpath', "//input[@aria-label='收件人地址输入框，请输入邮件地址，多人时地址请以分号隔开']")
-# subject = ('xpath', "//input[contains(@id, '_subjectInput')]")
-# iframe = ('xpath', '//iframe[@class="APP-editor-iframe"]')
-# text = ('xpath', '/html/body')
-# sendBtn = ('xpath', "//header//span[text()='发送']")
-# expect = ('xpath', "//h1[contains(@id,'_succInfo')]")
-# uploadAttachment = ('xpath', '//div[@title="点击添加附件"]')
-# delete = ('xpath', "//a[text()='删除']")
-# ---------------------------------------------------------------------------------
-
 class SendMailPage(BasePage):
 
     # 配置文件读取元素
@@ -35,7 +22,7 @@ class SendMailPage(BasePage):
     uploadAttachment = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'uploadAttachment')
     delete = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'delete')
 
-    def sendMail(self, Address, Subject, Text, Flag = 0, PFA=''):
+    def sendMail(self, Address, Subject, Text, PFA=''):
         '''发送邮件功能'''
         print('------------string send mail---------------------')
         self.click(*SendMailPage.writeMail)
@@ -44,7 +31,7 @@ class SendMailPage(BasePage):
         self.switchToFrame(*SendMailPage.iframe)
         self.sendKeys(*SendMailPage.text, Text)
         self.switchToDefaultFrame()
-        if Flag:
+        if PFA:
             self.click(*SendMailPage.uploadAttachment)
             self.ctrlV(PFA)
             self.enterKey()

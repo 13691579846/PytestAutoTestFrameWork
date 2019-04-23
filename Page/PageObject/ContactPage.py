@@ -9,17 +9,6 @@
 """
 from Page.BasePage import BasePage
 
-# ---------------------------------------------------------------------------------
-# 页面元素
-# new_contact = ('xpath', '//span[text()="新建联系人"]')
-# name = ('id', 'input_N')
-# mail = ('xpath', '//div[@id="iaddress_MAIL_wrap"]//input[@class="nui-ipt-input"]')
-# star = ('xpath', 'span[@class="nui-chk-text"]/preceding-sibling::span/b')
-# phone = ('xpath', "//div[@id='iaddress_TEL_wrap']//input[@class='nui-ipt-input']")
-# comment = ('id', "input_DETAIL")
-# commit = ('xpath', "//span[text()='确 定']")
-# ---------------------------------------------------------------------------------
-
 class ContactPage(BasePage):
 
     # 配置文件读取元素
@@ -32,14 +21,14 @@ class ContactPage(BasePage):
     commit = BasePage.cf.getLocatorsOrAccount('ContactPageElements', 'commit')
     errortip = BasePage.cf.getLocatorsOrAccount('ContactPageElements', 'tooltip')  # 错误提示
 
-    def newContact(self, Name='', Mail='', Star=None, Phone='', Comment=''):
+    def newContact(self, Name, Mail, Star, Phone, Comment):
 
         '''添加联系人'''
         print('--------string add contact--------')
         self.click(*ContactPage.new_contact)
         self.sendKeys(*ContactPage.name, Name)
         self.sendKeys(*ContactPage.mail, Mail)
-        if Star:
+        if Star == '1':
             self.click(*ContactPage.star)
         self.sendKeys(*ContactPage.phone, Phone)
         self.sendKeys(*ContactPage.comment, Comment)
