@@ -1,6 +1,6 @@
 """
 ------------------------------------
-@Time : 2019/4/15 16:50
+@Time : 2019/4/20 16:50
 @Auth : linux超
 @File : conf.py
 @IDE  : PyCharm
@@ -35,5 +35,10 @@ subject = 'xx项目自动化测试报告'
 contents = '测试报告正文'
 # 报告名称
 htmlName = r'{}\testReport{}.html'.format(reportDir, currentTime)
+
 # 脚本执行命令
-args = r'pytest --html='+htmlName+ ' '+projectDir+' --self-contained-html'
+args = r'pytest --html=' + htmlName+ ' ' + '--self-contained-html'
+# modify by linuxchao at 2019/4/25
+args_login = r'pytest --html='+ htmlName+ ' ' + '-m' + ' ' + 'loginTest'+ ' --self-contained-html'
+args_contact = r'pytest --html='+ htmlName+ ' ' + '-m' + ' ' + 'contactTest'+ ' --self-contained-html'
+args_sendmail = r'pytest --html='+ htmlName+ ' ' + '-m' + ' ' + 'sendMailTest'+ ' --self-contained-html'
