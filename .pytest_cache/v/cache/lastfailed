@@ -7,6 +7,5 @@
   "TestCases/test_loginCase.py::test_login[linux-xiaochao11520]": true,
   "TestCases/test_loginCase.py::test_login[linuxchao-123456]": true,
   "TestCases/test_loginCase.py::test_login[linuxxiaochao-123456]": true,
-  "TestCases/test_loginCase.py::test_login[linuxxiaochao-xiaochao11520-\u5199 \u4fe1]": true,
-  "TestCases/test_sendMailCase.py::TestSendMail::test_sendMail[281754043@qq.com-test\u53d1\u9001\u90ae\u4ef61-\u53d1\u9001\u666e\u901a\u6d4b\u8bd5\u90ae\u4ef6-]": true
+  "TestCases/test_loginCase.py::test_login[linuxxiaochao-xiaochao11520-\u5199 \u4fe1]": true
 }

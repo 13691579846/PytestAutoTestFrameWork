@@ -10,8 +10,10 @@
 import win32con
 import win32clipboard as WC
 
+
 class ClipBoard(object):
     '''设置剪切板内容和获取剪切板内容'''
+
     @staticmethod
     def getText():
         '''获取剪切板的内容'''
@@ -28,8 +30,10 @@ class ClipBoard(object):
         WC.SetClipboardData(win32con.CF_UNICODETEXT, value)
         WC.CloseClipboard()
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     from selenium import webdriver
+
     value = 'python'
     driver = webdriver.Firefox()
     driver.get('http://www.baidu.com')

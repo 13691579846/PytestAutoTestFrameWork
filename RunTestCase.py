@@ -8,8 +8,10 @@
 ------------------------------------
 """
 import sys
+sys.path.append('.')
 from config.conf import *
-from util.sendMailForReprot import sendMailWithReport
+from util.sendMailForReprot import SendMailWithReport
+
 
 def main():
     # 判断项目的根目录是否在sys.path中，没有就添加
@@ -18,9 +20,11 @@ def main():
     # 执行用例
     os.system(args)
     # 发送邮件
-    sendMailWithReport.sendMail(smtpServer, fromUser, fromPassWord,
-                                toUser, subject, contents,
-                              htmlName)
+    SendMailWithReport.send_mail(
+        smtpServer, fromUser, fromPassWord,
+        toUser, subject, contents,
+        htmlName)
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     main()

@@ -1,6 +1,6 @@
 """
 ------------------------------------
-@Time : 2019/4/15 10:04
+@Time : 2019/4/20 10:04
 @Auth : linux超
 @File : test_sendMailCase.py
 @IDE  : PyCharm
@@ -10,6 +10,7 @@
 import pytest
 from Page.PageObject.SendMailPage import SendMailPage
 
+@pytest.mark.sendMailTest
 class TestSendMail(object):
 
     sendMailSheet = SendMailPage.getSheet('mail')

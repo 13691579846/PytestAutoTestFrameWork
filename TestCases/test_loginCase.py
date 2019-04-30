@@ -1,6 +1,6 @@
 """
 ------------------------------------
-@Time : 2019/4/12 14:10
+@Time : 2019/4/20 14:10
 @Auth : linux超
 @File : test_loginCase.py
 @IDE  : PyCharm
@@ -10,6 +10,8 @@
 import pytest
 from Page.PageObject.LoginPage import LoginPage
 
+
+@pytest.mark.loginTest
 class TestLogin(object):
 
     # 测试数据
@@ -22,16 +24,16 @@ class TestLogin(object):
 
     @pytest.fixture()
     def teardown_func(self, driver):
-        '''
+        """
         执行每个用例之后要清除一下cookie，
         否则你第一个账号登录之后，重新加载网址还是登录状态，无法测试后面的账号
-        '''
+        """
         yield
         driver.delete_all_cookies()
 
     @pytest.mark.parametrize('username, password, expect', data)
     def test_login(self, teardown_func, driver, username, password, expect):
-        '''测试登录'''
+        """测试登录"""
         login = LoginPage(driver, 30)
         login.login(username, password)
         login.sleep(5)
@@ -48,5 +50,5 @@ class TestLogin(object):
             login.assertTextEqString(expect)
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     pytest.main(['-v', 'test_loginCase.py'])

@@ -45,20 +45,25 @@ def pytest_html_results_table_header(cells):
     cells.insert(2, html.th('Test_nodeid'))
     cells.pop(2)
 
+
 @pytest.mark.optionalhook
 def pytest_html_results_table_row(report, cells):
     cells.insert(1, html.td(report.description))
     cells.insert(2, html.td(report.nodeid))
     cells.pop(2)
+
+
 def _capture_screenshot():
-    '''
+    """
     截图保存为base64
     :return:
-    '''
+    """
     return _driver.get_screenshot_as_base64()
 # 这里我设置的级别是模块级别，也就是每个测试文件运行一次
 # 可以设置为session，全部用例执行一次，但是针对126邮箱的话
 # 登录次数太多会叫你验证，如果验证就没法执行用例了，我没有对验证处理（处理比较复杂）
+
+
 @pytest.fixture(scope='module')
 def driver():
     global _driver
@@ -68,4 +73,3 @@ def driver():
     yield _driver
     print('------------close browser------------')
     _driver.quit()
-

@@ -1,6 +1,6 @@
 """
 ------------------------------------
-@Time : 2019/4/12 16:15
+@Time : 2019/4/20 16:15
 @Auth : linux超
 @File : test_contactCase.py
 @IDE  : PyCharm
@@ -12,6 +12,8 @@ import pytest
 from Page.PageObject.HomePage import HomePage
 from Page.PageObject.ContactPage import ContactPage
 
+
+@pytest.mark.conatctTest
 class TestAddContact(object):
 
     # 测试数据
@@ -33,5 +35,5 @@ class TestAddContact(object):
         else:
             contact_page.assertErrorTip(expect)
 
-if __name__=='__main__':
+if __name__ == '__main__':
     pytest.main(['-v', 'test_contactCase.py'])

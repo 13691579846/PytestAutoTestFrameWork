@@ -10,6 +10,7 @@
 import configparser
 from config.conf import configDir
 
+
 class ParseConFile(object):
 
     def __init__(self):
@@ -30,7 +31,7 @@ class ParseConFile(object):
         try:
             locator = self.conf.get(section, option)
             if ('->' in locator):
-                locator =tuple(locator.split('->'))
+                locator = tuple(locator.split('->'))
             return locator
         except configparser.NoOptionError as e:
             print('error:', e)
