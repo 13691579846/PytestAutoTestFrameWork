@@ -1,6 +1,10 @@
 [
+  "TestCases/test_contactCase.py::TestAddContact::test_NewContact[linux1-281754041@qq.com-1-13691579841-\\u6dfb\\u52a0\\u8054\\u7cfb\\u4eba1-281754041@qq.com]",
+  "TestCases/test_contactCase.py::TestAddContact::test_NewContact[linux2-@qq.com-0-13691579842-\\u6dfb\\u52a0\\u8054\\u7cfb\\u4eba2-\\u8bf7\\u6b63\\u786e\\u586b\\u5199\\u90ae\\u4ef6\\u5730\\u5740\\u3002]",
   "TestCases/test_loginCase.py::TestLogin::test_login[linuxxiaochao-xiaochao11520-\\u5199 \\u4fe1]",
   "TestCases/test_loginCase.py::TestLogin::test_login[linuxxiaochao--\\u8bf7\\u8f93\\u5165\\u5bc6\\u7801]",
   "TestCases/test_loginCase.py::TestLogin::test_login[-xiaochao11520-\\u8bf7\\u8f93\\u5165\\u5e10\\u53f7]",
-  "TestCases/test_loginCase.py::TestLogin::test_login[linux-xiaochao-\\u5e10\\u53f7\\u6216\\u5bc6\\u7801\\u9519\\u8bef]"
+  "TestCases/test_loginCase.py::TestLogin::test_login[linux-xiaochao-\\u5e10\\u53f7\\u6216\\u5bc6\\u7801\\u9519\\u8bef]",
+  "TestCases/test_sendMailCase.py::TestSendMail::test_sendMail[281754043@qq.com-test\\u53d1\\u9001\\u90ae\\u4ef61-\\u53d1\\u9001\\u666e\\u901a\\u6d4b\\u8bd5\\u90ae\\u4ef6-]",
+  "TestCases/test_sendMailCase.py::TestSendMail::test_sendMail[281754043@qq.com-test\\u53d1\\u9001\\u90ae\\u4ef62-\\u53d1\\u9001\\u5e26\\u9644\\u4ef6\\u7684\\u90ae\\u4ef6-D:\\\\KeyWordDriverTestFrameWork\\\\geckodriver.log]"
 ]

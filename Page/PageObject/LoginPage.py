@@ -9,6 +9,7 @@
 """
 from Page.BasePage import BasePage
 
+
 class LoginPage(BasePage):
 
     # 配置文件读取元素

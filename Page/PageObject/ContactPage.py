@@ -9,8 +9,8 @@
 """
 from Page.BasePage import BasePage
 
-class ContactPage(BasePage):
 
+class ContactPage(BasePage):
     # 配置文件读取元素
     new_contact = BasePage.cf.getLocatorsOrAccount('ContactPageElements', 'new_contact')
     name = BasePage.cf.getLocatorsOrAccount('ContactPageElements', 'name')
@@ -22,8 +22,7 @@ class ContactPage(BasePage):
     errortip = BasePage.cf.getLocatorsOrAccount('ContactPageElements', 'tooltip')  # 错误提示
 
     def newContact(self, Name, Mail, Star, Phone, Comment):
-
-        '''添加联系人'''
+        """添加联系人"""
         print('--------string add contact--------')
         self.click(*ContactPage.new_contact)
         self.sendKeys(*ContactPage.name, Name)
@@ -36,7 +35,7 @@ class ContactPage(BasePage):
         print('--------end add contact--------')
 
     def assertErrorTip(self, excepted):
-        '''断言联系人添加失败时是否有提示信息'''
+        """断言联系人添加失败时是否有提示信息"""
         text = self.getElementText(*ContactPage.errortip)
         print('info: assert "{}"=="{}"'.format(text, excepted))
         assert text == excepted

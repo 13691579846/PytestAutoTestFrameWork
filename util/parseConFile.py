@@ -19,15 +19,15 @@ class ParseConFile(object):
         self.conf.read(self.file, encoding='utf-8')
 
     def getAllSections(self):
-        '''获取所有的section，返回一个列表'''
+        """获取所有的section，返回一个列表"""
         return self.conf.sections()
 
     def getAllOptions(self, section):
-        '''获取指定section下所有的option, 返回列表'''
+        """获取指定section下所有的option, 返回列表"""
         return self.conf.options(section)
 
     def getLocatorsOrAccount(self, section, option):
-        '''获取指定section, 指定option对应的数据, 返回元祖和字符串'''
+        """获取指定section, 指定option对应的数据, 返回元祖和字符串"""
         try:
             locator = self.conf.get(section, option)
             if ('->' in locator):
@@ -38,7 +38,7 @@ class ParseConFile(object):
         return 'error: No option "{}" in section: "{}"'.format(option, section)
 
     def getOptionValue(self, section):
-        '''获取指定section下所有的option和对应的数据，返回字典'''
+        """获取指定section下所有的option和对应的数据，返回字典"""
         value = dict(self.conf.items(section))
         return value
 

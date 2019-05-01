@@ -9,8 +9,8 @@
 """
 from Page.BasePage import BasePage
 
-class SendMailPage(BasePage):
 
+class SendMailPage(BasePage):
     # 配置文件读取元素
     writeMail = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
     addressee = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'addressee')
@@ -23,7 +23,7 @@ class SendMailPage(BasePage):
     delete = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'delete')
 
     def sendMail(self, Address, Subject, Text, PFA=''):
-        '''发送邮件功能'''
+        """发送邮件功能"""
         print('------------string send mail---------------------')
         self.click(*SendMailPage.writeMail)
         self.sendKeys(*SendMailPage.addressee, Address)

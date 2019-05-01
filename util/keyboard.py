@@ -13,8 +13,9 @@ import win32api
 import win32con
 import time
 
+
 class KeyBoard(object):
-    '''模拟按键'''
+    """模拟按键"""
     # 键盘码
     vk_code = {
         'enter' : 0x0D,
@@ -26,24 +27,24 @@ class KeyBoard(object):
     }
 
     @staticmethod
-    def keyDown(keyName):
-        '''按下键'''
-        keyName = keyName.lower()
+    def keyDown(key_name):
+        """按下键"""
+        key_name = key_name.lower()
         try:
-            win32api.keybd_event(KeyBoard.vk_code[keyName], 0, 0, 0)
+            win32api.keybd_event(KeyBoard.vk_code[key_name], 0, 0, 0)
         except Exception as e:
             print('未按下enter键')
             print(e)
 
     @staticmethod
-    def keyUp(keyName):
-        '''抬起键'''
-        keyName = keyName.lower()
-        win32api.keybd_event(KeyBoard.vk_code[keyName], 0, win32con.KEYEVENTF_KEYUP, 0)
+    def keyUp(key_name):
+        """抬起键"""
+        key_name = key_name.lower()
+        win32api.keybd_event(KeyBoard.vk_code[key_name], 0, win32con.KEYEVENTF_KEYUP, 0)
 
     @staticmethod
     def oneKey(key):
-        '''模拟单个按键'''
+        """模拟单个按键"""
         key = key.lower()
         KeyBoard.keyDown(key)
         time.sleep(2)
@@ -51,7 +52,7 @@ class KeyBoard(object):
 
     @staticmethod
     def twoKeys(key1, key2):
-        '''模拟组合按键'''
+        """模拟组合按键"""
         key1 = key1.lower()
         key2 = key2.lower()
         KeyBoard.keyDown(key1)
@@ -59,7 +60,8 @@ class KeyBoard(object):
         KeyBoard.keyUp(key1)
         KeyBoard.keyUp(key2)
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     from selenium import webdriver
     driver = webdriver.Firefox()
     driver.get('http://www.baidu.com')

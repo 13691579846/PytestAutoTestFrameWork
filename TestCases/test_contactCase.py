@@ -23,7 +23,7 @@ class TestAddContact(object):
     @pytest.mark.newcontact
     @pytest.mark.parametrize('Name, Mail, Star, Phone, Comment, expect', data)
     def test_NewContact(self, driver, login, Name, Mail, Star, Phone, Comment, expect):
-        '''测试添加联系人'''
+        """测试添加联系人"""
         home_page = HomePage(driver)
         contact_page = ContactPage(driver)
         home_page.selectMenu()

@@ -9,6 +9,7 @@
 """
 from Page.BasePage import BasePage
 
+
 class HomePage(BasePage):
     # 配置文件读取元素
     homePage = BasePage.cf.getLocatorsOrAccount('HomePageElements', 'homePage')
@@ -17,7 +18,7 @@ class HomePage(BasePage):
     inBox = BasePage.cf.getLocatorsOrAccount('HomePageElements', 'inBox')
     '''首页菜单选项'''
     def selectMenu(self, Menu='mailList'):
-
+        """邮箱首页选择菜单"""
         if Menu == 'mailList':
             self.click(*HomePage.mailList)
         elif Menu == 'homePage':

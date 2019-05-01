@@ -19,7 +19,7 @@ class TestSendMail(object):
     @pytest.mark.sendmail
     @pytest.mark.parametrize('Address, Subject, Text, PFA', data)
     def test_sendMail(self, driver, login, Address, Subject, Text,PFA):
-        '''测试发送邮件，包括带附件的邮件'''
+        """测试发送邮件，包括带附件的邮件"""
         send_mail = SendMailPage(driver)
         send_mail.sendMail(Address, Subject, Text, PFA)
         send_mail.sleep(5)

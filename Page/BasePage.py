@@ -7,24 +7,24 @@
 @Motto: Real warriors,dare to face the bleak warning,dare to face the incisive error!
 ------------------------------------
 """
-
+import time
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait as wd
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchWindowException, TimeoutException, \
     NoAlertPresentException, NoSuchFrameException
 from selenium import webdriver
-import time
 
 from util.clipboard import ClipBoard
 from util.keyboard import KeyBoard
 from util.parseConFile import ParseConFile
 from util.parseExcelFile import ParseExcel
 
+
 class BasePage(object):
-    '''
+    """
     结合显示等待封装一些selenium 内置方法
-    '''
+    """
     cf = ParseConFile()
     excel = ParseExcel()
 
@@ -40,12 +40,12 @@ class BasePage(object):
         self.outTime = outTime
 
     def findElement(self, by, locator):
-        '''
+        """
         find alone element
         :param by: eg: id, name, xpath, css.....
         :param locator: id, name, xpath for str
         :return: element object
-        '''
+        """
         try:
             print('[Info:Starting find the element "{}" by "{}"!]'.format(locator, by))
             element = wd(self.driver, self.outTime).until(lambda x : x.find_element(by, locator))
@@ -60,12 +60,12 @@ class BasePage(object):
             return element
 
     def findElements(self, by, locator):
-        '''
+        """
         find group elements
         :param by: eg: id, name, xpath, css.....
         :param locator: eg: id, name, xpath for str
         :return: elements object
-        '''
+        """
         try:
             print('[Info:start find the elements "{}" by "{}"!]'.format(locator, by))
             elements = wd(self.driver, self.outTime).until(lambda x : x.find_element(by, locator))
@@ -80,12 +80,12 @@ class BasePage(object):
             return elements
 
     def isElementExsit(self, by, locator):
-        '''
+        """
         assert element if exist
         :param by: eg: id, name, xpath, css.....
         :param locator: eg: id, name, xpath for str
         :return: if element return True else return false
-        '''
+        """
         if by.lower() in self.byDic:
             try:
                 wd(self.driver, self.outTime).\
@@ -101,7 +101,7 @@ class BasePage(object):
             print('the "{}" error!'.format(by))
 
     def isClick(self, by, locator):
-        '''判断是否可点击,返回元素对象'''
+        """判断是否可点击,返回元素对象"""
         if by.lower() in self.byDic:
             try:
                 element = wd(self.driver, self.outTime).\
@@ -113,10 +113,10 @@ class BasePage(object):
             print('the "{}" error!'.format(by))
 
     def isAlertAndSwitchToIt(self):
-        '''
+        """
         assert alert if exsit
         :return: alert obj
-        '''
+        """
         try:
             re = wd(self.driver, self.outTime).until(EC.alert_is_present())
         except NoAlertPresentException:
@@ -126,7 +126,7 @@ class BasePage(object):
         return re
 
     def switchToFrame(self, by, locator):
-        '''判断frame是否存在，存在就跳到frame'''
+        """判断frame是否存在，存在就跳到frame"""
         print('info:switching to iframe "{}"'.format(locator))
         if by.lower() in self.byDic:
             try:
@@ -142,7 +142,7 @@ class BasePage(object):
             print('the "{}" error!'.format(by))
 
     def switchToDefaultFrame(self):
-        '''返回默认的frame'''
+        """返回默认的frame"""
         print('info:switch back to default iframe')
         try:
             self.driver.switch_to.default_content()
@@ -150,7 +150,7 @@ class BasePage(object):
             print(e)
 
     def getAlertText(self):
-        '''获取alert的提示信息'''
+        """获取alert的提示信息"""
         if self.isAlertAndSwitchToIt():
             alert = self.isAlertAndSwitchToIt()
             return alert.text
@@ -158,7 +158,7 @@ class BasePage(object):
             return None
 
     def getElementText(self, by, locator, name=None):
-        '''获取某一个元素的text信息'''
+        """获取某一个元素的text信息"""
         try:
             element = self.findElement(by, locator)
             if name:
@@ -170,16 +170,16 @@ class BasePage(object):
             return None
 
     def loadUrl(self, url):
-        '''加载url'''
+        """加载url"""
         print('info: string upload url "{}"'.format(url))
         self.driver.get(url)
 
     def getSource(self):
-        '''获取页面源码'''
+        """获取页面源码"""
         return self.driver.page_source
 
     def sendKeys(self, by, locator, value=''):
-        '''写数据'''
+        """写数据"""
         print('info:input "{}"'.format(value))
         try:
             element = self.findElement(by, locator)
@@ -188,7 +188,7 @@ class BasePage(object):
             print(e)
 
     def clear(self, by, locator):
-        '''清理数据'''
+        """清理数据"""
         print('info:clearing value')
         try:
             element = self.findElement(by, locator)
@@ -197,7 +197,7 @@ class BasePage(object):
             print(e)
 
     def click(self, by, locator):
-        '''点击某个元素'''
+        """点击某个元素"""
         print('info:click "{}"'.format(locator))
         element = self.isClick(by, locator)
         if element:
@@ -206,24 +206,24 @@ class BasePage(object):
             print('the "{}" unclickable!')
 
     def sleep(self, num=0):
-        '''强制等待'''
+        """强制等待"""
         print('info:sleep "{}" minutes'.format(num))
         time.sleep(num)
 
     def ctrlV(self, value):
-        '''ctrl + V 粘贴'''
+        """ctrl + V 粘贴"""
         print('info:pasting "{}"'.format(value))
         ClipBoard.setText(value)
         self.sleep(3)
         KeyBoard.twoKeys('ctrl', 'v')
 
     def enterKey(self):
-        '''enter 回车键'''
+        """enter 回车键"""
         print('info:keydown enter')
         KeyBoard.oneKey('enter')
 
     def waitElementtobelocated(self, by, locator):
-        '''显示等待某个元素出现，且可见'''
+        """显示等待某个元素出现，且可见"""
         print('info:waiting "{}" to be located'.format(locator))
         try:
             wd(self.driver, self.outTime).until(EC.visibility_of_element_located((self.byDic[by], locator)))
@@ -235,26 +235,25 @@ class BasePage(object):
             raise e
 
     def assertValueInSource(self, value):
-        '''断言某个关键字是否存在页面源码中'''
+        """断言某个关键字是否存在页面源码中"""
         print('info:assert "{}" in page source'.format(value))
         source = self.getSource()
         assert value in source, '关键字"{}"不存在源码中!'.format(value)
 
     def assertStringContainsValue(self, String, value):
-        '''断言某段字符串包含另一个字符串'''
+        """断言某段字符串包含另一个字符串"""
         print('info:assert "{}" contains "{}"'.format(String, value))
         assert value in String, '"{}"不包含"{}"!'.format(String, value)
 
 
     @staticmethod
     def getSheet(sheetName):
-        '''获取某个sheet页的对象'''
+        """获取某个sheet页的对象"""
         sheet = BasePage.excel.getSheetByName(sheetName)
         return sheet
 
 
-
-if __name__=="__main__":
+if __name__ == "__main__":
     driver = webdriver.Firefox()
     frame = ('xpath', '//div[@id="loginDiv"]/ifram')
     wait = BasePage(driver)

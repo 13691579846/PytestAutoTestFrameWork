@@ -20,11 +20,14 @@ def main():
     # 执行用例
     os.system(args)
     # 发送邮件
-    SendMailWithReport.send_mail(
-        smtpServer, fromUser, fromPassWord,
-        toUser, subject, contents,
-        htmlName)
+    # SendMailWithReport.send_mail(
+    #     smtpServer, fromUser, fromPassWord,
+    #     toUser, subject, contents,
+    #     htmlName)
 
 
 if __name__ == '__main__':
     main()
+# https://www.cnblogs.com/linuxchao/p/linuxchao-pytest-report.html
+# https://www.cnblogs.com/linuxchao/p/linuxchao-pytest-configfile.html
+# https://www.cnblogs.com/linuxchao/p/linuxchao-pytest-conftest.html
