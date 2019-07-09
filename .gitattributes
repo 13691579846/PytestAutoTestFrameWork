@@ -1,2 +1,4 @@
-.py linguist-language=python
-.html linguist-language=python
+*.py linguist-language=python
+*.html linguist-language=python
+*.css linguist-language=python
+*.xlsx linguist-language=python
