@@ -8,43 +8,78 @@
 ------------------------------------
 """
 from Page.BasePage import BasePage
+from util.parseConFile import ParseConFile
 
 
 class SendMailPage(BasePage):
     # 配置文件读取元素
-    writeMail = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'writeMail')
-    addressee = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'addressee')
-    subject = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'subject')
-    iframe = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'iframe')
-    text = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'text')
-    sendBtn = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'sendBtn')
-    expect = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'expect')
-    uploadAttachment = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'uploadAttachment')
-    delete = BasePage.cf.getLocatorsOrAccount('SendMailPageElements', 'delete')
+    do_conf = ParseConFile()
+    # 写信按钮
+    writeMail = do_conf.get_locators_or_account('SendMailPageElements', 'writeMail')
+    # 收件人输入框
+    addressee = do_conf.get_locators_or_account('SendMailPageElements', 'addressee')
+    # 邮件主题
+    subject = do_conf.get_locators_or_account('SendMailPageElements', 'subject')
+    # 上传附件
+    uploadAttachment = do_conf.get_locators_or_account('SendMailPageElements', 'uploadAttachment')
+    # 正文外的iframe
+    iframe = do_conf.get_locators_or_account('SendMailPageElements', 'iframe')
+    # 正文
+    text = do_conf.get_locators_or_account('SendMailPageElements', 'text')
+    # 发送按钮
+    sendBtn = do_conf.get_locators_or_account('SendMailPageElements', 'sendBtn')
+    # 发送成功的提示信息
+    send_success = do_conf.get_locators_or_account('SendMailPageElements', 'send_success')
+    # 收件人为空的提示信息
+    error_info_address_is_none = do_conf.get_locators_or_account('SendMailPageElements', 'error_info_address_is_none')
+    # 收件人格式或者主题为空的提示信息
+    error_info_popup_window = do_conf.get_locators_or_account('SendMailPageElements', 'error_info_popup_window')
 
-    def sendMail(self, Address, Subject, Text, PFA=''):
-        """发送邮件功能"""
-        print('------------string send mail---------------------')
-        self.click(*SendMailPage.writeMail)
-        self.sendKeys(*SendMailPage.addressee, Address)
-        self.sendKeys(*SendMailPage.subject, Subject)
-        self.switchToFrame(*SendMailPage.iframe)
-        self.sendKeys(*SendMailPage.text, Text)
-        self.switchToDefaultFrame()
-        if PFA:
-            self.click(*SendMailPage.uploadAttachment)
-            self.ctrlV(PFA)
-            self.enterKey()
-            self.waitElementtobelocated(*SendMailPage.delete)
-        self.click(*SendMailPage.sendBtn)
-        print('------------end send mail---------------------')
+    def send_mail(self, address, subject, text, pfa):
+        self.click_write_mail_btn()
+        self.input_address(address)
+        self.input_subject(subject)
+        if pfa:
+            self.upload_file(pfa)
+        self.switch_frame()
+        self.input_main_text(text)
+        self.switch_default_frame()
+        self.click_send_btn()
 
-if __name__=='__main__':
-    from Page.PageObject.LoginPage import LoginPage
-    from selenium import webdriver
-    driver = webdriver.Firefox()
+    def click_write_mail_btn(self):
+        return self.click(*SendMailPage.writeMail)
 
-    login = LoginPage(driver)
-    login.login('账号', 'xiaochao11520')
-    sendMail = SendMailPage(driver)
-    sendMail.sendMail('281754043@qq.com', 'pytest', 'pytest实战实例', 1, 'D:\KeyWordDriverTestFrameWork\geckodriver.log')
+    def input_address(self, address):
+        return self.send_keys(*SendMailPage.addressee, address)
+
+    def input_subject(self, subject):
+        return self.send_keys(*SendMailPage.subject, subject)
+
+    def upload_file(self, pfa):
+        return self.send_keys(*SendMailPage.uploadAttachment, pfa)
+
+    def switch_frame(self):
+        return self.switch_to_frame(*SendMailPage.iframe)
+
+    def input_main_text(self, text):
+        return self.send_keys(*SendMailPage.text, text)
+
+    def switch_default_frame(self):
+        return self.switch_to_default_frame()
+
+    def click_send_btn(self):
+        return self.click(*SendMailPage.sendBtn)
+
+    def wait_success_info_element_located(self):
+        return self.wait_element_to_be_located(*SendMailPage.send_success)
+
+    def get_error_address_is_none(self):
+        element = self.driver.find_element(*SendMailPage.error_info_address_is_none)
+        return element.text
+
+    def get_error_popup_window(self):
+        return self.get_element_text(*SendMailPage.error_info_popup_window)
+
+
+if __name__ == '__main__':
+    pass

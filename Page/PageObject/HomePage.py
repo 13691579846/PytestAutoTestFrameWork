@@ -8,39 +8,51 @@
 ------------------------------------
 """
 from Page.BasePage import BasePage
+from util.parseConFile import ParseConFile
 
 
 class HomePage(BasePage):
     # 配置文件读取元素
-    homePage = BasePage.cf.getLocatorsOrAccount('HomePageElements', 'homePage')
-    mailList = BasePage.cf.getLocatorsOrAccount('HomePageElements', 'mailList')
-    applicationCenter = BasePage.cf.getLocatorsOrAccount('HomePageElements', 'applicationCenter')
-    inBox = BasePage.cf.getLocatorsOrAccount('HomePageElements', 'inBox')
-    '''首页菜单选项'''
-    def selectMenu(self, Menu='mailList'):
-        """邮箱首页选择菜单"""
-        if Menu == 'mailList':
-            self.click(*HomePage.mailList)
-        elif Menu == 'homePage':
-            self.click(*HomePage.homePage)
-        elif Menu == 'applicationCenter':
-            self.click(*HomePage.applicationCenter)
-        elif Menu == 'inBox':
-            self.click(*HomePage.inBox)
+    do_conf = ParseConFile()
+    # 首页
+    homePage = do_conf.get_locators_or_account('HomePageElements', 'homePage')
+    # 通讯录
+    mailList = do_conf.get_locators_or_account('HomePageElements', 'mailList')
+    # 应用中心
+    applicationCenter = do_conf.get_locators_or_account('HomePageElements', 'applicationCenter')
+    # 收件箱
+    inBox = do_conf.get_locators_or_account('HomePageElements', 'inBox')
+
+    def select_menu(self, menu='mailList'):
+        if menu == "mailList":
+            self.click_address_list_menu()
+        elif menu == 'homePage':
+            self.click_home_page_menu()
+        elif menu == 'applicationCenter':
+            self.click_application_center_menu()
+        elif menu == 'inBox':
+            self.click_in_box_menu()
         else:
-            raise ValueError('''
-            菜单选择错误!
-            homePage->首页
-            mailList->通讯录
-            applicationCenter->应用中心
-            inBox->收件箱''')
+            raise ValueError(
+                '''菜单选择错误!
+                homePage->首页
+                mailList->通讯录
+                applicationCenter->应用中心
+                inBox->收件箱'''
+            )
 
-if __name__=='__main__':
-    from selenium import webdriver
-    from Page.PageObject.LoginPage import LoginPage
-    driver = webdriver.Firefox()
-    login = LoginPage(driver)
-    login.login('账号', 'xiaochao11520')
+    def click_home_page_menu(self):
+        return self.click(*HomePage.homePage)
 
-    home = HomePage(driver)
-    home.selectMenu()
+    def click_address_list_menu(self):
+        return self.click(*HomePage.mailList)
+
+    def click_application_center_menu(self):
+        return self.click(*HomePage.applicationCenter)
+
+    def click_in_box_menu(self):
+        return self.click(*HomePage.inBox)
+
+
+if __name__ == '__main__':
+    pass

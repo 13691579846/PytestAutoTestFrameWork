@@ -7,33 +7,37 @@
 @Motto: Real warriors,dare to face the bleak warning,dare to face the incisive error!
 ------------------------------------
 """
-import re
 import pytest
-from Page.PageObject.HomePage import HomePage
-from Page.PageObject.ContactPage import ContactPage
+
+from data.contact_data import ContactData
 
 
 @pytest.mark.conatctTest
 class TestAddContact(object):
+    """添加联系人"""
+    contact_data = ContactData
+    success_data = contact_data.add_contact_success
+    fail_data = contact_data.add_contact_fail
 
-    # 测试数据
-    contactSheet = ContactPage.getSheet('contact')
-    data = ContactPage.excel.getAllValuesOfSheet(contactSheet)
-
-    @pytest.mark.newcontact
-    @pytest.mark.parametrize('Name, Mail, Star, Phone, Comment, expect', data)
-    def test_NewContact(self, driver, login, Name, Mail, Star, Phone, Comment, expect):
+    @pytest.mark.parametrize('name, mail, star, phone, comment, expect', success_data)
+    def test_add_contact_success(self, login, refresh_page, name, mail, star, phone, comment, expect):
         """测试添加联系人"""
-        home_page = HomePage(driver)
-        contact_page = ContactPage(driver)
-        home_page.selectMenu()
-        contact_page.newContact(Name, Mail, Star, Phone, Comment)
-        home_page.sleep(5)
-        # 校验错误的邮箱是否提示信息正确
-        if re.match(r'^.{1,}@[0-9a-zA-Z]{1,13}\..*$', Mail):
-            contact_page.assertValueInSource(expect)
-        else:
-            contact_page.assertErrorTip(expect)
+        home_page = login[1]
+        contact_page = login[2]
+        home_page.select_menu(menu="mailList")
+        contact_page.add_contact(name, mail, star, phone, comment)
+        actual = contact_page.get_source()
+        assert expect in actual, "添加联系人成功, 断言失败"
+
+    @pytest.mark.parametrize('name, mail, star, phone, comment, expect', fail_data)
+    def test_add_contact_fail(self, login, refresh_page, name, mail, star, phone, comment, expect):
+        home_page = login[1]
+        contact_page = login[2]
+        home_page.select_menu(menu="mailList")
+        contact_page.add_contact(name, mail, star, phone, comment)
+        actual = contact_page.get_error_text()
+        assert actual == expect, "添加联系人失败, 断言失败"
+
 
 if __name__ == '__main__':
     pytest.main(['-v', 'test_contactCase.py'])

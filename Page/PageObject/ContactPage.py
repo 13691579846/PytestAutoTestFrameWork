@@ -8,49 +8,64 @@
 ------------------------------------
 """
 from Page.BasePage import BasePage
+from util.parseConFile import ParseConFile
 
 
 class ContactPage(BasePage):
     # 配置文件读取元素
-    new_contact = BasePage.cf.getLocatorsOrAccount('ContactPageElements', 'new_contact')
-    name = BasePage.cf.getLocatorsOrAccount('ContactPageElements', 'name')
-    mail = BasePage.cf.getLocatorsOrAccount('ContactPageElements', 'mail')
-    star = BasePage.cf.getLocatorsOrAccount('ContactPageElements', 'star')
-    phone = BasePage.cf.getLocatorsOrAccount('ContactPageElements', 'phone')
-    comment = BasePage.cf.getLocatorsOrAccount('ContactPageElements', 'comment')
-    commit = BasePage.cf.getLocatorsOrAccount('ContactPageElements', 'commit')
-    errortip = BasePage.cf.getLocatorsOrAccount('ContactPageElements', 'tooltip')  # 错误提示
+    do_conf = ParseConFile()
+    # 新键联系人按钮
+    new_contact_btn = do_conf.get_locators_or_account('ContactPageElements', 'new_contact')
+    # 姓名输入框
+    name = do_conf.get_locators_or_account('ContactPageElements', 'name')
+    # 电子邮箱输入框
+    mail = do_conf.get_locators_or_account('ContactPageElements', 'mail')
+    # 标记为星级
+    star = do_conf.get_locators_or_account('ContactPageElements', 'star')
+    # 电话号码输入框
+    phone = do_conf.get_locators_or_account('ContactPageElements', 'phone')
+    # 备注输入框
+    comment = do_conf.get_locators_or_account('ContactPageElements', 'comment')
+    # 确定按钮
+    commit = do_conf.get_locators_or_account('ContactPageElements', 'commit')
+    # 添加失败的提示信息
+    error_tip = do_conf.get_locators_or_account('ContactPageElements', 'tooltip')
 
-    def newContact(self, Name, Mail, Star, Phone, Comment):
+    def add_contact(self, name, mail, star, phone, comment):
         """添加联系人"""
-        print('--------string add contact--------')
-        self.click(*ContactPage.new_contact)
-        self.sendKeys(*ContactPage.name, Name)
-        self.sendKeys(*ContactPage.mail, Mail)
-        if Star == '1':
-            self.click(*ContactPage.star)
-        self.sendKeys(*ContactPage.phone, Phone)
-        self.sendKeys(*ContactPage.comment, Comment)
-        self.click(*ContactPage.commit)
-        print('--------end add contact--------')
+        self.click_new_contact_btn()
+        self.input_name(name)
+        self.input_mail(mail)
+        if star == '1':
+            self.select_str()
+        self.input_phone(phone)
+        self.input_comment(comment)
+        self.click_commit_btn()
 
-    def assertErrorTip(self, excepted):
-        """断言联系人添加失败时是否有提示信息"""
-        text = self.getElementText(*ContactPage.errortip)
-        print('info: assert "{}"=="{}"'.format(text, excepted))
-        assert text == excepted
+    def click_new_contact_btn(self):
+        return self.click(*ContactPage.new_contact_btn)
+
+    def input_name(self, name):
+        return self.send_keys(*ContactPage.name, name)
+
+    def input_mail(self, mail):
+        return self.send_keys(*ContactPage.mail, mail)
+
+    def select_str(self):
+        return self.click(*ContactPage.star)
+
+    def input_phone(self, phone):
+        return self.send_keys(*ContactPage.phone, phone)
+
+    def input_comment(self, comment):
+        return self.send_keys(*ContactPage.comment, comment)
+
+    def click_commit_btn(self):
+        return self.click(*ContactPage.commit)
+
+    def get_error_text(self):
+        return self.get_element_text(*ContactPage.error_tip)
+
 
 if __name__ == '__main__':
-    from selenium import webdriver
-    from Page.PageObject.LoginPage import LoginPage
-    from Page.PageObject.HomePage import HomePage
-    driver = webdriver.Firefox()
-    home = HomePage(driver)
-    login = LoginPage(driver)
-    contact = ContactPage(driver)
-
-    login.login('账号', 'xiaochao11520')
-    home.selectMenu()
-    contact.newContact('281754041@qq.com')
-
-
+    pass

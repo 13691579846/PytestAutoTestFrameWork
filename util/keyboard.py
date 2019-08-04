@@ -18,16 +18,16 @@ class KeyBoard(object):
     """模拟按键"""
     # 键盘码
     vk_code = {
-        'enter' : 0x0D,
-        'tab' : 0x09,
-        'ctrl' : 0x11,
-        'v' : 0x56,
-        'a' : 0x41,
-        'x' : 0x58
+        'enter': 0x0D,
+        'tab': 0x09,
+        'ctrl': 0x11,
+        'v': 0x56,
+        'a': 0x41,
+        'x': 0x58
     }
 
     @staticmethod
-    def keyDown(key_name):
+    def key_down(key_name):
         """按下键"""
         key_name = key_name.lower()
         try:
@@ -37,34 +37,29 @@ class KeyBoard(object):
             print(e)
 
     @staticmethod
-    def keyUp(key_name):
+    def key_up(key_name):
         """抬起键"""
         key_name = key_name.lower()
         win32api.keybd_event(KeyBoard.vk_code[key_name], 0, win32con.KEYEVENTF_KEYUP, 0)
 
     @staticmethod
-    def oneKey(key):
+    def one_key(key):
         """模拟单个按键"""
         key = key.lower()
-        KeyBoard.keyDown(key)
+        KeyBoard.key_down(key)
         time.sleep(2)
-        KeyBoard.keyUp(key)
+        KeyBoard.key_up(key)
 
     @staticmethod
-    def twoKeys(key1, key2):
+    def two_keys(key1, key2):
         """模拟组合按键"""
         key1 = key1.lower()
         key2 = key2.lower()
-        KeyBoard.keyDown(key1)
-        KeyBoard.keyDown(key2)
-        KeyBoard.keyUp(key1)
-        KeyBoard.keyUp(key2)
+        KeyBoard.key_down(key1)
+        KeyBoard.key_down(key2)
+        KeyBoard.key_up(key1)
+        KeyBoard.key_up(key2)
 
 
 if __name__ == '__main__':
-    from selenium import webdriver
-    driver = webdriver.Firefox()
-    driver.get('http://www.baidu.com')
-    driver.find_element_by_id('kw').send_keys('python')
-    KeyBoard.twoKeys('ctrl', 'a')
-    KeyBoard.twoKeys('ctrl', 'x')
+    pass

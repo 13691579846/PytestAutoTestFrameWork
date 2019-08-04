@@ -8,12 +8,13 @@
 ------------------------------------
 """
 import time
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait as wd
+from selenium.webdriver.support.wait import WebDriverWait as WD
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchWindowException, TimeoutException, \
-    NoAlertPresentException, NoSuchFrameException
-from selenium import webdriver
+from selenium.common.exceptions import (
+    TimeoutException,
+    NoAlertPresentException,
+)
 
 from util.clipboard import ClipBoard
 from util.keyboard import KeyBoard
@@ -22,24 +23,22 @@ from util.parseExcelFile import ParseExcel
 
 
 class BasePage(object):
-    """
-    结合显示等待封装一些selenium 内置方法
-    """
+    """结合显示等待封装一些selenium内置方法"""
     cf = ParseConFile()
     excel = ParseExcel()
 
-    def __init__(self, driver, outTime=30):
+    def __init__(self, driver, timeout=30):
         self.byDic = {
-        'id': By.ID,
-        'name': By.NAME,
-        'class_name': By.CLASS_NAME,
-        'xpath': By.XPATH,
-        'link_text': By.LINK_TEXT
+            'id': By.ID,
+            'name': By.NAME,
+            'class_name': By.CLASS_NAME,
+            'xpath': By.XPATH,
+            'link_text': By.LINK_TEXT
         }
         self.driver = driver
-        self.outTime = outTime
+        self.outTime = timeout
 
-    def findElement(self, by, locator):
+    def find_element(self, by, locator):
         """
         find alone element
         :param by: eg: id, name, xpath, css.....
@@ -48,18 +47,13 @@ class BasePage(object):
         """
         try:
             print('[Info:Starting find the element "{}" by "{}"!]'.format(locator, by))
-            element = wd(self.driver, self.outTime).until(lambda x : x.find_element(by, locator))
+            element = WD(self.driver, self.outTime).until(lambda x: x.find_element(by, locator))
         except TimeoutException as t:
             print('error: found "{}" timeout!'.format(locator), t)
-        except NoSuchWindowException as e:
-            print('error: no such "{}"'.format(locator), e)
-        except Exception as e:
-            raise e
         else:
-            # print('[Info:Had found the element "{}" by "{}"!]'.format(locator, by))
             return element
 
-    def findElements(self, by, locator):
+    def find_elements(self, by, locator):
         """
         find group elements
         :param by: eg: id, name, xpath, css.....
@@ -68,18 +62,13 @@ class BasePage(object):
         """
         try:
             print('[Info:start find the elements "{}" by "{}"!]'.format(locator, by))
-            elements = wd(self.driver, self.outTime).until(lambda x : x.find_element(by, locator))
+            elements = WD(self.driver, self.outTime).until(lambda x: x.find_elements(by, locator))
         except TimeoutException as t:
-            print(t)
-        except NoSuchWindowException as e:
-            print(e)
-        except Exception as e:
-            raise e
+            print('error: found "{}" timeout!'.format(locator), t)
         else:
-            # print('[Info:Had found the elements "{}" by "{}"!]'.format(locator, by))
             return elements
 
-    def isElementExsit(self, by, locator):
+    def is_element_exist(self, by, locator):
         """
         assert element if exist
         :param by: eg: id, name, xpath, css.....
@@ -88,60 +77,52 @@ class BasePage(object):
         """
         if by.lower() in self.byDic:
             try:
-                wd(self.driver, self.outTime).\
-                    until(EC.visibility_of_element_located((self.byDic[by], locator)))
+                WD(self.driver, self.outTime). \
+                    until(ec.visibility_of_element_located((self.byDic[by], locator)))
             except TimeoutException:
-                print('Error: element "{}" time out!'.format(locator))
-                return False
-            except NoSuchWindowException:
-                print('Error: element "{}" not exsit!'.format(locator))
+                print('Error: element "{}" not exist'.format(locator))
                 return False
             return True
         else:
             print('the "{}" error!'.format(by))
 
-    def isClick(self, by, locator):
-        """判断是否可点击,返回元素对象"""
+    def is_click(self, by, locator):
         if by.lower() in self.byDic:
             try:
-                element = wd(self.driver, self.outTime).\
-                    until(EC.element_to_be_clickable((self.byDic[by], locator)))
-            except Exception:
-                return False
-            return element
+                element = WD(self.driver, self.outTime). \
+                    until(ec.element_to_be_clickable((self.byDic[by], locator)))
+            except TimeoutException:
+                print("元素不可以点击")
+            else:
+                return element
         else:
             print('the "{}" error!'.format(by))
 
-    def isAlertAndSwitchToIt(self):
+    def is_alert(self):
         """
         assert alert if exsit
         :return: alert obj
         """
         try:
-            re = wd(self.driver, self.outTime).until(EC.alert_is_present())
-        except NoAlertPresentException:
-            return False
-        except Exception:
-            return False
-        return re
+            re = WD(self.driver, self.outTime).until(ec.alert_is_present())
+        except (TimeoutException, NoAlertPresentException):
+            print("error:no found alert")
+        else:
+            return re
 
-    def switchToFrame(self, by, locator):
+    def switch_to_frame(self, by, locator):
         """判断frame是否存在，存在就跳到frame"""
         print('info:switching to iframe "{}"'.format(locator))
         if by.lower() in self.byDic:
             try:
-                wd(self.driver, self.outTime).\
-                    until(EC.frame_to_be_available_and_switch_to_it((self.byDic[by], locator)))
+                WD(self.driver, self.outTime). \
+                    until(ec.frame_to_be_available_and_switch_to_it((self.byDic[by], locator)))
             except TimeoutException as t:
-                print('error: found "{}" timeout！'.format(locator), t)
-            except NoSuchFrameException as e:
-                print('error: no such "{}"'.format(locator), e)
-            except Exception as e:
-                raise e
+                print('error: found "{}" timeout！切换frame失败'.format(locator), t)
         else:
             print('the "{}" error!'.format(by))
 
-    def switchToDefaultFrame(self):
+    def switch_to_default_frame(self):
         """返回默认的frame"""
         print('info:switch back to default iframe')
         try:
@@ -149,40 +130,39 @@ class BasePage(object):
         except Exception as e:
             print(e)
 
-    def getAlertText(self):
+    def get_alert_text(self):
         """获取alert的提示信息"""
-        if self.isAlertAndSwitchToIt():
-            alert = self.isAlertAndSwitchToIt()
+        alert = self.is_alert()
+        if alert:
             return alert.text
         else:
             return None
 
-    def getElementText(self, by, locator, name=None):
+    def get_element_text(self, by, locator, name=None):
         """获取某一个元素的text信息"""
         try:
-            element = self.findElement(by, locator)
+            element = self.find_element(by, locator)
             if name:
                 return element.get_attribute(name)
             else:
                 return element.text
-        except:
+        except AttributeError:
             print('get "{}" text failed return None'.format(locator))
-            return None
 
-    def loadUrl(self, url):
+    def load_url(self, url):
         """加载url"""
         print('info: string upload url "{}"'.format(url))
         self.driver.get(url)
 
-    def getSource(self):
+    def get_source(self):
         """获取页面源码"""
         return self.driver.page_source
 
-    def sendKeys(self, by, locator, value=''):
+    def send_keys(self, by, locator, value=''):
         """写数据"""
         print('info:input "{}"'.format(value))
         try:
-            element = self.findElement(by, locator)
+            element = self.find_element(by, locator)
             element.send_keys(value)
         except AttributeError as e:
             print(e)
@@ -191,7 +171,7 @@ class BasePage(object):
         """清理数据"""
         print('info:clearing value')
         try:
-            element = self.findElement(by, locator)
+            element = self.find_element(by, locator)
             element.clear()
         except AttributeError as e:
             print(e)
@@ -199,68 +179,42 @@ class BasePage(object):
     def click(self, by, locator):
         """点击某个元素"""
         print('info:click "{}"'.format(locator))
-        element = self.isClick(by, locator)
+        element = self.is_click(by, locator)
         if element:
             element.click()
         else:
             print('the "{}" unclickable!')
 
-    def sleep(self, num=0):
+    @staticmethod
+    def sleep(num=0):
         """强制等待"""
         print('info:sleep "{}" minutes'.format(num))
         time.sleep(num)
 
-    def ctrlV(self, value):
+    def ctrl_v(self, value):
         """ctrl + V 粘贴"""
         print('info:pasting "{}"'.format(value))
-        ClipBoard.setText(value)
+        ClipBoard.set_text(value)
         self.sleep(3)
-        KeyBoard.twoKeys('ctrl', 'v')
+        KeyBoard.two_keys('ctrl', 'v')
 
-    def enterKey(self):
+    @staticmethod
+    def enter_key():
         """enter 回车键"""
         print('info:keydown enter')
-        KeyBoard.oneKey('enter')
+        KeyBoard.one_key('enter')
 
-    def waitElementtobelocated(self, by, locator):
+    def wait_element_to_be_located(self, by, locator):
         """显示等待某个元素出现，且可见"""
         print('info:waiting "{}" to be located'.format(locator))
         try:
-            wd(self.driver, self.outTime).until(EC.visibility_of_element_located((self.byDic[by], locator)))
+            return WD(self.driver, self.outTime).until(ec.presence_of_element_located((self.byDic[by], locator)))
         except TimeoutException as t:
             print('error: found "{}" timeout！'.format(locator), t)
-        except NoSuchWindowException as e:
-            print('error: no such "{}"'.format(locator), e)
-        except Exception as e:
-            raise e
 
-    def assertValueInSource(self, value):
-        """断言某个关键字是否存在页面源码中"""
-        print('info:assert "{}" in page source'.format(value))
-        source = self.getSource()
-        assert value in source, '关键字"{}"不存在源码中!'.format(value)
-
-    def assertStringContainsValue(self, String, value):
-        """断言某段字符串包含另一个字符串"""
-        print('info:assert "{}" contains "{}"'.format(String, value))
-        assert value in String, '"{}"不包含"{}"!'.format(String, value)
-
-
-    @staticmethod
-    def getSheet(sheetName):
-        """获取某个sheet页的对象"""
-        sheet = BasePage.excel.getSheetByName(sheetName)
-        return sheet
+    def get_page_source(self):
+        return self.get_source()
 
 
 if __name__ == "__main__":
-    driver = webdriver.Firefox()
-    frame = ('xpath', '//div[@id="loginDiv"]/ifram')
-    wait = BasePage(driver)
-    driver.get('https://mail.126.com/')
-    wait.switchToFrame(*frame)
-    username = wait.findElement('xpath', '//input[@name="email"]')
-    username.send_keys('账号')
-    if wait.isElementExsit('xpath', '//input[@name="password"]'):
-        wait.findElement('xpath', '//input[@name="password"]').send_keys('xiaochao11520')
-    wait.click('xpath', '//a[@id="dologin"]')
+    pass

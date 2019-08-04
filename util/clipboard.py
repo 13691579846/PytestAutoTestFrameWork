@@ -8,36 +8,28 @@
 ------------------------------------
 """
 import win32con
-import win32clipboard as WC
+import win32clipboard as wc
 
 
 class ClipBoard(object):
-    '''设置剪切板内容和获取剪切板内容'''
+    """设置剪切板内容和获取剪切板内容"""
 
     @staticmethod
-    def getText():
-        '''获取剪切板的内容'''
-        WC.OpenClipboard()
-        value = WC.GetClipboardData(win32con.CF_TEXT)
-        WC.CloseClipboard()
+    def get_text():
+        """获取剪切板的内容"""
+        wc.OpenClipboard()
+        value = wc.GetClipboardData(win32con.CF_TEXT)
+        wc.CloseClipboard()
         return value
 
     @staticmethod
-    def setText(value):
-        '''设置剪切板的内容'''
-        WC.OpenClipboard()
-        WC.EmptyClipboard()
-        WC.SetClipboardData(win32con.CF_UNICODETEXT, value)
-        WC.CloseClipboard()
+    def set_text(value):
+        """设置剪切板的内容"""
+        wc.OpenClipboard()
+        wc.EmptyClipboard()
+        wc.SetClipboardData(win32con.CF_UNICODETEXT, value)
+        wc.CloseClipboard()
 
 
 if __name__ == '__main__':
-    from selenium import webdriver
-
-    value = 'python'
-    driver = webdriver.Firefox()
-    driver.get('http://www.baidu.com')
-    query = driver.find_element_by_id('kw')
-    ClipBoard.setText(value)
-    clValue = ClipBoard.getText()
-    query.send_keys(clValue.decode('utf-8'))
+    pass

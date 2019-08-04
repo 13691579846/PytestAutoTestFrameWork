@@ -8,46 +8,29 @@
 ------------------------------------
 """
 import pytest
-from Page.PageObject.LoginPage import LoginPage
+
+from data.login_data import LoginData
 
 
 @pytest.mark.loginTest
 class TestLogin(object):
+    """登录"""
+    login_data = LoginData
 
-    # 测试数据
-    loginSheet = LoginPage.getSheet('login')
-    data = LoginPage.excel.getAllValuesOfSheet(loginSheet)
+    @pytest.mark.parametrize('username, password, expect', login_data.login_success_data)
+    def test_login(self, open_url, username, password, expect):
+        login_page = open_url
+        login_page.login(username, password)
+        login_page.switch_default_frame()
+        actual = login_page.get_login_success_account()
+        assert expect in actual, "登录成功, 断言失败"
 
-    # 正确的帐号和密码
-    userName = LoginPage.cf.getLocatorsOrAccount('126LoginAccount', 'username')
-    passWord = LoginPage.cf.getLocatorsOrAccount('126LoginAccount', 'password')
-
-    @pytest.fixture()
-    def teardown_func(self, driver):
-        """
-        执行每个用例之后要清除一下cookie，
-        否则你第一个账号登录之后，重新加载网址还是登录状态，无法测试后面的账号
-        """
-        yield
-        driver.delete_all_cookies()
-
-    @pytest.mark.parametrize('username, password, expect', data)
-    def test_login(self, teardown_func, driver, username, password, expect):
-        """测试登录"""
-        login = LoginPage(driver, 30)
-        login.login(username, password)
-        login.sleep(5)
-        # 增加登录失败时， 对提示信息的验证
-        if username == TestLogin.userName and password == TestLogin.passWord:
-            login.assertValueInSource(expect)
-        elif username == '':
-            login.assertTextEqString(expect)
-        elif username != '' and password == '':
-            login.assertTextEqString(expect)
-        elif username == '' and password == '':
-            login.assertTextEqString(expect)
-        else:
-            login.assertTextEqString(expect)
+    @pytest.mark.parametrize('username, password, expect', login_data.login_fail_data)
+    def test_fail(self, open_url, username, password, expect):
+        login_page = open_url
+        login_page.login(username, password)
+        actual = login_page.get_error_text()
+        assert actual == expect, "登录失败, 断言失败"
 
 
 if __name__ == "__main__":

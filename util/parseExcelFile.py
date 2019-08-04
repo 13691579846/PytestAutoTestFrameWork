@@ -8,94 +8,72 @@
 ------------------------------------
 """
 from openpyxl import load_workbook
-from config.conf import excelPath
+from config.conf import DATA_Path
 
 
 class ParseExcel(object):
 
     def __init__(self):
-        self.wk = load_workbook(excelPath)
-        self.excelFile = excelPath
+        self.wk = load_workbook(DATA_Path)
+        self.excelFile = DATA_Path
 
-    def getSheetByName(self, sheetName):
+    def get_sheet_by_name(self, sheet_name):
         """获取sheet对象"""
-        sheet = self.wk[sheetName]
+        sheet = self.wk[sheet_name]
         return sheet
 
-    def getRowNum(self, sheet):
+    def get_row_num(self, sheet):
         """获取有效数据的最大行号"""
         return sheet.max_row
 
-    def getColsNum(self, sheet):
+    def get_cols_num(self, sheet):
         """获取有效数据的最大列号"""
         return sheet.max_column
 
-    def getRowValues(self, sheet, rowNum):
+    def get_row_values(self, sheet, row_num):
         """获取某一行的数据"""
-        maxColsNum = self.getColsNum(sheet)
-        rowValues = []
-        for colsNum in range(1, maxColsNum + 1):
-            value = sheet.cell(rowNum, colsNum).value
+        max_cols_num = self.get_cols_num(sheet)
+        row_values = []
+        for colsNum in range(1, max_cols_num + 1):
+            value = sheet.cell(row_num, colsNum).value
             if value is None:
                 value = ''
-            rowValues.append(value)
-        return tuple(rowValues)
+            row_values.append(value)
+        return tuple(row_values)
 
-    def getColumnValues(self, sheet, columnNum):
+    def get_column_values(self, sheet, column_num):
         """获取某一列的数据"""
-        maxRowNum = self.getRowNum(sheet)
-        columnValues = []
-        for rowNum in range(2, maxRowNum + 1):
-            value = sheet.cell(rowNum, columnNum).value
+        max_row_num = self.get_row_num(sheet)
+        column_values = []
+        for rowNum in range(2, max_row_num + 1):
+            value = sheet.cell(rowNum, column_num).value
             if value is None:
                 value = ''
-            columnValues.append(value)
-        return tuple(columnValues)
+            column_values.append(value)
+        return tuple(column_values)
 
-    def getValueOfCell(self, sheet, rowNum, columnNum):
+    def get_value_of_cell(self, sheet, row_num, column_num):
         """获取某一个单元格的数据"""
-        value = sheet.cell(rowNum, columnNum).value
+        value = sheet.cell(row_num, column_num).value
         if value is None:
             value = ''
         return value
 
-    def getAllValuesOfSheet(self, sheet):
+    def get_all_values_of_sheet(self, sheet):
         """获取某一个sheet页的所有测试数据，返回一个元祖组成的列表"""
-        maxRowNum = self.getRowNum(sheet)
-        columnNum = self.getColsNum(sheet)
-        allValues = []
-        for row in range(2, maxRowNum + 1):
-            rowValues = []
-            for column in range(1, columnNum + 1):
+        max_row_num = self.get_row_num(sheet)
+        column_num = self.get_cols_num(sheet)
+        all_values = []
+        for row in range(2, max_row_num + 1):
+            row_values = []
+            for column in range(1, column_num + 1):
                 value = sheet.cell(row, column).value
                 if value is None:
                     value = ''
-                rowValues.append(value)
-            allValues.append(tuple(rowValues))
-        return allValues
+                row_values.append(value)
+            all_values.append(tuple(row_values))
+        return all_values
 
 
 if __name__ == '__main__':
-    # excel = ParseExcel()
-    # sheet = excel.getSheetByName('login')
-    # print('行号:', excel.getRowNum(sheet))
-    # print('列号:', excel.getColsNum(sheet))
-    #
-    # rowvalues = excel.getRowValues(sheet, 1)
-    # columnvalues = excel.getColumnValues(sheet, 2)
-    # valueofcell = excel.getValueOfCell(sheet, 1, 2)
-    # allvalues = excel.getAllValuesOfSheet(sheet)
-    #
-    # print('第{}行数据{}'.format(1, rowvalues))
-    # print('第{}列数据{}'.format(2, columnvalues))
-    # print('{}{}单元格的内容{}'.format(1, 2, valueofcell))
-    # print('login{}'.format(allvalues))
-
-    excel = ParseExcel()
-    sheet = excel.getSheetByName('mail')
-    print('行号:', excel.getRowNum(sheet))
-    print('列号:', excel.getColsNum(sheet))
-
-    allvalues = excel.getAllValuesOfSheet(sheet)
-
-    print('sendmail{}'.format(allvalues))
+    pass

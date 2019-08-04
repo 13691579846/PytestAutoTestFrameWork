@@ -8,18 +8,20 @@
 ------------------------------------
 """
 import sys
-sys.path.append('.')
-from config.conf import *
-from util.sendMailForReprot import SendMailWithReport
+import pytest
+
+from config.conf import ROOT_DIR, HTML_NAME
+
+# from util.sendMailForReprot import SendMailWithReport
 
 
 def main():
-    # 判断项目的根目录是否在sys.path中，没有就添加
-    if projectDir not in sys.path:
-        sys.path.append(projectDir)
+    if ROOT_DIR not in sys.path:
+        sys.path.append(ROOT_DIR)
     # 执行用例
-    os.system(args)
-    # 发送邮件
+    args = ['--reruns', '1', '--html=' + './report/' + HTML_NAME]
+    pytest.main(args)
+    # 发送邮件 这里我屏蔽了 自己添加自己的邮箱信息
     # SendMailWithReport.send_mail(
     #     smtpServer, fromUser, fromPassWord,
     #     toUser, subject, contents,
@@ -28,6 +30,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+# 我的部分博客地址
 # https://www.cnblogs.com/linuxchao/p/linuxchao-pytest-report.html
 # https://www.cnblogs.com/linuxchao/p/linuxchao-pytest-configfile.html
 # https://www.cnblogs.com/linuxchao/p/linuxchao-pytest-conftest.html
