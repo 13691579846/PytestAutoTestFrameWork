@@ -1,6 +1,6 @@
 ##ignore these files##
-assets/
-.pytest_cache/
+assets
+.pytest_cache
 .idea
 *.log
-venv/
+venv
